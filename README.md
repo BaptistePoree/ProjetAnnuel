@@ -1,2 +1,2 @@
 # ProjetAnnuel
-Logicel Pour salon Crowd-Fondeurs
+Logicel Pour salon Crowd-Fonding
