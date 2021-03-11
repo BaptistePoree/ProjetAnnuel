@@ -11,4 +11,5 @@
             <li><a href="index.php?action=home"><img src="img/logout.png"><span>Déconnexion</span></a></li>
         </ul>
     </nav>
+    <h2>projet 1</h2>
 </main>

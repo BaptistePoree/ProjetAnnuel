@@ -24,6 +24,36 @@ class View {
         $this->styleSheetList[] = 'home';
     }
 
+    public function makeProjectPage(){
+        $this->title = "Liste des projet";
+        ob_start();
+        include('templates/projectPage.php');
+        $this->content .= ob_get_clean();
+        $this->styleSheetList[] = 'home';
+    }
+
+    public function makeInvestementPage(){
+        $this->title = "Mes investissements";
+        ob_start();
+        include('templates/InvestementPage.php');
+        $this->content .= ob_get_clean();
+        $this->styleSheetList[] = 'home';
+    }
+    public function makeRankingsPage(){
+        $this->title = "Classement";
+        ob_start();
+        include('templates/rankingsPage.php');
+        $this->content .= ob_get_clean();
+        $this->styleSheetList[] = 'home';
+    }
+    public function makeManagementPage(){
+        $this->title = "Gestion";
+        ob_start();
+        include('templates/ManagementPage.php');
+        $this->content .= ob_get_clean();
+        $this->styleSheetList[] = 'home';
+    }
+
 	public function render() {
         include("templates/top.php");
         echo $this->content;

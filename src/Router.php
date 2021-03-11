@@ -10,14 +10,30 @@ class Router {
 		$view = new View($this);
 		$controller = new Controller($view);
 
-		$action = key_exists('action', $_GET) ? $_GET['action'] : 'accueil';
+		$action = key_exists('action', $_GET) ? $_GET['action'] : 'home';
 
 		try {
 			switch ($action) {
-			case "accueil":
+			case "home":
                 $view->makeHomePage();
                 break;
-        
+			//if(){ on vérifie que la personne est connecter
+				case "project":
+					$view->makeProjectPage();
+					break;
+				//if(){ on vérifie que la personne crowd-fouder 
+				case "investement":
+					$view->makeInvestementPage();
+					break;
+				//}else if(){on vérifie que la personne professeur
+				case "rankings":
+					$view->makeRankingsPage();
+					break;
+				case "management":
+					$view->makeManagementPage();
+					break;
+				//}
+			//}
 			default:
 				//TO-DO: Page defaut
 				break;
