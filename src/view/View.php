@@ -22,6 +22,7 @@ class View {
         include('templates/homePage.php');
         $this->content .= ob_get_clean();
         $this->styleSheetList[] = 'home';
+        $this->styleSheetList[] = 'general';
     }
 
     public function makeProjectPage(){
@@ -29,7 +30,7 @@ class View {
         ob_start();
         include('templates/projectPage.php');
         $this->content .= ob_get_clean();
-        $this->styleSheetList[] = 'home';
+        $this->styleSheetList[] = 'general';
     }
 
     public function makeInvestementPage(){
@@ -37,21 +38,45 @@ class View {
         ob_start();
         include('templates/InvestementPage.php');
         $this->content .= ob_get_clean();
-        $this->styleSheetList[] = 'home';
+        $this->styleSheetList[] = 'general';
     }
     public function makeRankingsPage(){
         $this->title = "Classement";
         ob_start();
         include('templates/rankingsPage.php');
         $this->content .= ob_get_clean();
-        $this->styleSheetList[] = 'home';
+        $this->styleSheetList[] = 'general';
     }
     public function makeManagementPage(){
         $this->title = "Gestion";
         ob_start();
         include('templates/ManagementPage.php');
         $this->content .= ob_get_clean();
-        $this->styleSheetList[] = 'home';
+        $this->styleSheetList[] = 'general';
+    }
+
+    function makeProjectListPage($listOfProject){
+        $this->title = "Liste des projets";
+        ob_start();
+        include('templates/projectList.php');
+        $this->content .= ob_get_clean();
+        $this->styleSheetList[] = 'general';
+    }
+
+    public function makeShowProjectPage($project){
+        $this->title = "Projet - " . $project->getName();
+        ob_start();
+        include('templates/projectPage.php');
+        $this->content .= ob_get_clean();
+        $this->styleSheetList[] = 'general';
+    }
+
+    public function makeErrorPage($title, $description){
+        $this->title = "Erreur";
+        ob_start();
+        include('templates/errorPage.php');
+        $this->content .= ob_get_clean();
+        $this->styleSheetList[] = 'general';
     }
 
 	public function render() {

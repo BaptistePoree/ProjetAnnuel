@@ -33,6 +33,16 @@ class Router {
 					$view->makeManagementPage();
 					break;
 				//}
+				case "projectList":
+						$controller->projectList();
+					break;
+
+				case 'showProject':
+					if(key_exists('projectId', $_GET)){
+						$controller->showProject($_GET['projectId']);
+					}else{
+						//TO-DO: Page erreur pas d'identifiant de projet placé en paramètre
+					}
 			//}
 			default:
 				//TO-DO: Page defaut
