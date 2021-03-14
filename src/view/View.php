@@ -79,6 +79,16 @@ class View {
         $this->styleSheetList[] = 'general';
     }
 
+    public function makeCreateNewProjectPage($projectBuilder = null){
+        $this->title = "Ajouter un projet";
+        $this->content .= '<main><form method="POST" action=".?action=createNewProject">';
+        ob_start();
+        include('templates/projectForm.php');
+        $this->content .= ob_get_clean();
+        $this->content .= '<input type="submit" name="create" value="Ajouter projet"></form></main>';
+        $this->styleSheetList[] = 'general';
+    }
+
 	public function render() {
         include("templates/top.php");
         echo $this->content;

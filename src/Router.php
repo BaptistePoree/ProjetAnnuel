@@ -43,6 +43,13 @@ class Router {
 					}else{
 						//TO-DO: Page erreur pas d'identifiant de projet placé en paramètre
 					}
+				
+				case 'createNewProject':
+					if(key_exists('create', $_POST)){
+						$controller->createNewProject($_POST);
+					}else{
+						$view->makeCreateNewProjectPage();
+					}
 			//}
 			default:
 				//TO-DO: Page defaut
