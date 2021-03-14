@@ -81,7 +81,8 @@ class View {
 
     public function makeCreateNewProjectPage($projectBuilder = null){
         $this->title = "Ajouter un projet";
-        $this->content .= '<main><form method="POST" action=".?action=createNewProject">';
+        $this->content .= '<main><a href="?action=home" class="backButton"><img src="img/back_button.png" alt="Retour_Logo"><span>Retour</span></a>  ';
+        $this->content .= '<form method="POST" action=".?action=createNewProject">';
         ob_start();
         include('templates/projectForm.php');
         $this->content .= ob_get_clean();

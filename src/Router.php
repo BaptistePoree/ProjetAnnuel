@@ -18,38 +18,39 @@ class Router {
                 $view->makeHomePage();
                 break;
 			//if(){ on vérifie que la personne est connecter
-				case "project":
-					$view->makeProjectPage();
-					break;
-				//if(){ on vérifie que la personne crowd-fouder 
-				case "investement":
-					$view->makeInvestementPage();
-					break;
-				//}else if(){on vérifie que la personne professeur
-				case "rankings":
-					$view->makeRankingsPage();
-					break;
-				case "management":
-					$view->makeManagementPage();
-					break;
-				//}
-				case "projectList":
-						$controller->projectList();
-					break;
+			case "project":
+				$view->makeProjectPage();
+				break;
+			//if(){ on vérifie que la personne crowd-fouder 
+			case "investement":
+				$view->makeInvestementPage();
+				break;
+			//}else if(){on vérifie que la personne professeur
+			case "rankings":
+				$view->makeRankingsPage();
+				break;
+			case "management":
+				$view->makeManagementPage();
+				break;
+			//}
+			case "projectList":
+					$controller->projectList();
+				break;
 
-				case 'showProject':
-					if(key_exists('projectId', $_GET)){
-						$controller->showProject($_GET['projectId']);
-					}else{
-						//TO-DO: Page erreur pas d'identifiant de projet placé en paramètre
-					}
-				
-				case 'createNewProject':
-					if(key_exists('create', $_POST)){
-						$controller->createNewProject($_POST);
-					}else{
-						$view->makeCreateNewProjectPage();
-					}
+			case 'showProject':
+				if(key_exists('projectId', $_GET)){
+					$controller->showProject($_GET['projectId']);
+				}else{
+					//TO-DO: Page erreur pas d'identifiant de projet placé en paramètre
+				}
+				break;
+			
+			case 'createNewProject':
+				if(key_exists('create', $_POST)){
+					$controller->createNewProject($_POST);
+				}else{
+					$view->makeCreateNewProjectPage();
+				}
 			//}
 			default:
 				//TO-DO: Page defaut
