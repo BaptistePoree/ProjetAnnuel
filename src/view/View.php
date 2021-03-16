@@ -21,7 +21,7 @@ class View {
         ob_start();
         include('templates/homePage.php');
         $this->content .= ob_get_clean();
-        $this->styleSheetList[] = 'home';
+        //$this->styleSheetList[] = 'home';
         $this->styleSheetList[] = 'general';
     }
 
@@ -53,6 +53,14 @@ class View {
         include('templates/ManagementPage.php');
         $this->content .= ob_get_clean();
         $this->styleSheetList[] = 'general';
+    }
+
+    function makeSalonListPage($listOfSalon){
+        $this->title = "Liste des salons";
+        ob_start();
+        include('templates/homePage.php');
+        $this->content .= ob_get_clean();
+        $this->styleSheetList[] = 'home';
     }
 
     function makeProjectListPage($listOfProject){
@@ -87,6 +95,17 @@ class View {
         include('templates/projectForm.php');
         $this->content .= ob_get_clean();
         $this->content .= '<input type="submit" name="create" value="Ajouter projet"></form></main>';
+        $this->styleSheetList[] = 'general';
+    }
+
+    public function makeCreateNewSalonPage($salonBuilder = null){
+        $this->title = "Ajouter un salon";
+        $this->content .= '<main><a href="?action=home" class="backButton"><img src="img/back_button.png" alt="Retour_Logo"><span>Retour</span></a>  ';
+        $this->content .= '<form method="POST" action=".?action=createNewSalon">';
+        ob_start();
+        include('templates/SalonForm.php');
+        $this->content .= ob_get_clean();
+        $this->content .= '<input type="submit" name="create" value="Ajouter un salon"></form></main>';
         $this->styleSheetList[] = 'general';
     }
 

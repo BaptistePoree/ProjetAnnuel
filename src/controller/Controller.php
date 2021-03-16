@@ -1,6 +1,8 @@
 <?php
 require_once("model/ProjectStorage.php");
 require_once("model/ProjectBuilder.php");
+require_once("model/SalonStorage.php");
+require_once("model/SalonBuilder.php");
 
 class Controller {
 
@@ -9,6 +11,30 @@ class Controller {
 	public function __construct(View $view) {
         $this->view = $view;
         $this->projectStorage = new ProjectStorage($this->view);
+        $this->salonStorage = new SalonStorage($this->view);
+    }
+
+    public function salonList(){
+        $listOfSalon = $this->salonStorage->getSalonList();
+        if($listOfSalon != 'error'){
+            $this->view->makeSalonListPage($listOfSalon);
+        }
+    }
+
+    public function createNewSalon($data){
+        $salonBuilder = new SalonBuilder($data);
+        if($salonBuilder->isValid()){
+            $salon = $salonBuilder->buildSalon();
+            $response = $this->salonStorage->addSalon($salon);
+            /*
+            if($response!= 'error'){
+                $this->showSalon($response);
+                //TO-DO: Pour l'instant une fois ajouter, est affiché la page du salon qui vient d'être créer. Peut-être à la place un page indiquant que le salon à bien été ajouté, et 3 boutons: -Voir fiche salon, -ajouter un autre salon, -retourner à l'accueil
+            }
+            */
+        }else{
+            $this->view->makeCreateNewSalonPage($salonBuilder);
+        }
     }
 
     public function projectList(){

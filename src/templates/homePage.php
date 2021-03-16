@@ -12,4 +12,15 @@
             <li><a href="index.php?action=home"><img src="img/logout.png"><span>Déconnexion</span></a></li>
         </ul>
     </nav>
+    <?php
+        echo '<a href=".?action=createNewSalon"><span>Nouveau salon</span></a>';
+        if (sizeof($listOfSalon) === 0) {
+            echo '<p>Aucun salon existant.</p>';
+        } else {
+            foreach ($listOfSalon as $salon) {
+                echo '<h2>Projet - <?php echo $salon->getName() ?></h2>';
+                echo '<p><?php echo $salon->getDescription() ?></p>';
+            }
+        }
+    ?>
 </main>
