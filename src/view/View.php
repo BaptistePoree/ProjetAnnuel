@@ -77,6 +77,7 @@ class View {
         include('templates/projectPage.php');
         $this->content .= ob_get_clean();
         $this->styleSheetList[] = 'general';
+        $this->styleSheetList[] = 'projectPage';
     }
 
     public function makeErrorPage($title, $description){
@@ -106,6 +107,14 @@ class View {
         include('templates/SalonForm.php');
         $this->content .= ob_get_clean();
         $this->content .= '<input type="submit" name="create" value="Ajouter un salon"></form></main>';
+        $this->styleSheetList[] = 'general';
+    }
+
+    public function makeInvestingPage($project, $investmentBuilder=null){
+        $this->title = "Investir";
+        ob_start();
+        include('templates/investmentPage.php');
+        $this->content .= ob_get_clean();
         $this->styleSheetList[] = 'general';
     }
 

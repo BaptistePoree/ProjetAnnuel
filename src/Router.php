@@ -54,6 +54,15 @@ class Router {
 			case "investement":
 				$view->makeInvestementPage();
 				break;
+			case "investing":
+				if(key_exists('projectId', $_GET)){
+					if(key_exists('investing', $_POST)){
+						$controller->investing($_GET['projectId'], $_POST);
+					}else{
+						$controller->investing($_GET['projectId']);
+					}
+				}
+				break;
 			//}else if(){on vérifie que la personne professeur
 			case "rankings":
 				$view->makeRankingsPage();

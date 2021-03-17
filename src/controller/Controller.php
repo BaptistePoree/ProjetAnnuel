@@ -3,6 +3,10 @@ require_once("model/ProjectStorage.php");
 require_once("model/ProjectBuilder.php");
 require_once("model/SalonStorage.php");
 require_once("model/SalonBuilder.php");
+require_once("model/Investment.php");
+require_once("model/InvestmentStorage.php");
+require_once("model/InvestmentBuilder.php");
+
 
 class Controller {
 
@@ -12,6 +16,7 @@ class Controller {
         $this->view = $view;
         $this->projectStorage = new ProjectStorage($this->view);
         $this->salonStorage = new SalonStorage($this->view);
+        $this->investmentStorage = new InvestmentStorage($this->view);
     }
 
     public function salonList(){
@@ -66,6 +71,63 @@ class Controller {
             }
         }else{
             $this->view->makeCreateNewProjectPage($projectBuilder);
+        }
+    }
+
+    public function investing($projectId, $investmentPOSTData = null){
+        //on récupère le projet
+        $project = $this->projectStorage->getProject($projectId);
+        //On récupère si un investissement existe déjà sur le projet placé en paramètre
+        $investment = $this->investmentStorage->getInvestmentByProjectIdAndUserId($projectId, $_SESSION['userId']);
+        if($investment != 'error' && $project != 'error'){
+            //On check si un formulaire à été renvoyé ou non
+            if($investmentPOSTData != null){
+                if($investmentPOSTData['investing'] == 'add'){
+                    $investmentPOSTData['idUser'] = $_SESSION['userId'];
+                    $investmentPOSTData['idProject'] = $projectId;
+                    $investmentBuilder = new InvestmentBuilder($investmentPOSTData);
+                    if($investmentBuilder->isValid()){
+                        $investment = $investmentBuilder->buildInvestment();
+                        $addInvestment = $this->investmentStorage->addInvestment($investment);
+                        if($addInvestment != 'error'){
+                            echo "Ajouté avec succès";
+                            //TO-DO: redirection vers page "propre" avec message investissement ajouter 
+                        }
+                    }else{
+                        $this->view->makeInvestingPage($project, $investmentBuilder);
+                    }
+                }
+                if($investmentPOSTData['investing'] == 'edit'){
+                    if($investment != null){
+                        $investmentPOSTData['id'] = $investment->getId();
+                        $investmentPOSTData['idUser'] = $investment->getIdUser();
+                        $investmentPOSTData['idProject'] = $investment->getIdProject();
+                        $investmentBuilder = new InvestmentBuilder($investmentPOSTData);
+                        if($investmentBuilder->isValid()){
+                            $investment = $investmentBuilder->buildInvestment();
+                            $editInvestment = $this->investmentStorage->editInvestment($investment);
+                            if($editInvestment == true){
+                                echo "Modifié avec succès";
+                                //TO-DO: redirection vers page "propre" avec message investissement modifié     
+                            }
+                        }else{
+                            $this->view->makeInvestingPage($project, $investmentBuilder);
+                        }
+                    }else{
+                        //TO-DO: Erreur
+                    }
+                }
+            }else{
+                //Si aucun investissement n'existe on affiche un formulaire vierge
+                if($investment == null){
+                    $this->view->makeInvestingPage($project);
+                }else{
+                    //Sinon on affiche le fomulaire rempli avec l'investissement associé
+                    $investmentBuilder = new InvestmentBuilder();
+                    $investmentBuilder = $investmentBuilder->buildFromInvestmentObject($investment);
+                    $this->view->makeInvestingPage($project, $investmentBuilder);
+                }
+            }
         }
     }
 
