@@ -71,4 +71,25 @@ class InvestmentStorage{
         } 
     }
 
+    public function getInvestmentList($userId){
+        try{
+            $bd = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
+            $rq = "SELECT * FROM investments WHERE idUser = :idUser";
+            $stmt = $bd->prepare($rq);
+            $data = array(
+                ":idUser" => $userId
+            );
+            $stmt->execute($data);
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            if($result != null){
+                return $result;
+            }else{
+                return null;
+            }
+        }catch(PDOException $e){
+            $this->view->makeErrorPage('Erreur lors d\'une requête à la base de donnée', $e->getMessage());
+            return 'error';
+        }
+    }
+
 }

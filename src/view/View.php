@@ -33,13 +33,6 @@ class View {
         $this->styleSheetList[] = 'general';
     }
 
-    public function makeInvestementPage(){
-        $this->title = "Mes investissements";
-        ob_start();
-        include('templates/InvestementPage.php');
-        $this->content .= ob_get_clean();
-        $this->styleSheetList[] = 'general';
-    }
     public function makeRankingsPage(){
         $this->title = "Classement";
         ob_start();
@@ -61,6 +54,7 @@ class View {
         include('templates/homePage.php');
         $this->content .= ob_get_clean();
         $this->styleSheetList[] = 'home';
+        $this->styleSheetList[] = 'general';
     }
 
     function makeProjectListPage($listOfProject){
@@ -69,6 +63,7 @@ class View {
         include('templates/projectList.php');
         $this->content .= ob_get_clean();
         $this->styleSheetList[] = 'general';
+        $this->styleSheetList[] = 'projectList';
     }
 
     public function makeShowProjectPage($project){
@@ -116,6 +111,25 @@ class View {
         include('templates/investmentPage.php');
         $this->content .= ob_get_clean();
         $this->styleSheetList[] = 'general';
+        $this->styleSheetList[] = 'investingPage';
+    }
+
+    public function makeInvestmentListPage($investmentList){
+        $this->title = "Liste de mes investissement";
+        ob_start();
+        include('templates/investmentList.php');
+        $this->content .= ob_get_clean();
+        $this->styleSheetList[] = 'general';
+        $this->styleSheetList[] = 'investmentList';
+    }
+
+    public function makeInvestmentSuccessPage($project){
+        $this->title = "Investissement enregistré";
+        ob_start();
+        include('templates/investmentSuccess.php');
+        $this->content .= ob_get_clean();
+        $this->styleSheetList[] = 'general';
+        $this->styleSheetList[] = 'investmentSuccess';
     }
 
 	public function render() {

@@ -49,10 +49,11 @@ class Router {
 				}else{
 					$view->makeCreateNewProjectPage();
 				}
+				break;
 			//}
 			//if(){ on vérifie que la personne crowd-fouder 
-			case "investement":
-				$view->makeInvestementPage();
+			case "investmentList":
+				$controller->investmentList();
 				break;
 			case "investing":
 				if(key_exists('projectId', $_GET)){

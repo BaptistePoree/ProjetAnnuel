@@ -90,8 +90,7 @@ class Controller {
                         $investment = $investmentBuilder->buildInvestment();
                         $addInvestment = $this->investmentStorage->addInvestment($investment);
                         if($addInvestment != 'error'){
-                            echo "Ajouté avec succès";
-                            //TO-DO: redirection vers page "propre" avec message investissement ajouter 
+                            $this->view->makeInvestmentSuccessPage($project); 
                         }
                     }else{
                         $this->view->makeInvestingPage($project, $investmentBuilder);
@@ -107,8 +106,7 @@ class Controller {
                             $investment = $investmentBuilder->buildInvestment();
                             $editInvestment = $this->investmentStorage->editInvestment($investment);
                             if($editInvestment == true){
-                                echo "Modifié avec succès";
-                                //TO-DO: redirection vers page "propre" avec message investissement modifié     
+                                $this->view->makeInvestmentSuccessPage($project);  
                             }
                         }else{
                             $this->view->makeInvestingPage($project, $investmentBuilder);
@@ -128,6 +126,13 @@ class Controller {
                     $this->view->makeInvestingPage($project, $investmentBuilder);
                 }
             }
+        }
+    }
+
+    public function investmentList(){
+        $investmentList = $this->investmentStorage->getInvestmentList($_SESSION['userId']);
+        if($investmentList != 'error'){
+            $this->view->makeInvestmentListPage($investmentList);
         }
     }
 
