@@ -42,7 +42,7 @@ if ($investmentBuilder != null) {
     <form method="POST" action=".?action=investing&projectId=<?php echo $project->getId() ?>">
         <div>
             <label for="amount">Montant à investir (en €)</label>
-            <input type="number" name="amount" id="amount" <?php echo $dataList['amount'] ?>>
+            <input type="number" name="amount" id="amount" pattern="[0-9]*" inputmode="numeric" <?php echo $dataList['amount'] ?>>
             <?php echo $errorsList['amount'] ?>
         </div>
         <div>
