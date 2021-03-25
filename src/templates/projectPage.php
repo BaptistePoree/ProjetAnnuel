@@ -27,14 +27,15 @@
 
         </tr>
     </table>
-    <?php 
-    $investmentStorage = new InvestmentStorage($this);
-    $investment = $investmentStorage->getInvestmentByProjectIdAndUserId($project->getId(), $_SESSION['userId']);
-    if($investment == null){
-        echo '<a href=".?action=investing&projectId=' . $project->getId() . '" class="button">Investir dans ce projet</a>';
-    }else{
-        echo '<a href=".?action=investing&projectId=' . $project->getId() . '" class="button">Modifier mon investissement (' . $investment->getAmount() . '€)</a>';
+    <?php
+    if($_SESSION['role'] == 2){
+        $investmentStorage = new InvestmentStorage($this);
+        $investment = $investmentStorage->getInvestmentByProjectIdAndUserId($project->getId(), $_SESSION['userId']);
+        if($investment == null){
+            echo '<a href=".?action=investing&projectId=' . $project->getId() . '" class="button">Investir dans ce projet</a>';
+        }else{
+            echo '<a href=".?action=investing&projectId=' . $project->getId() . '" class="button">Modifier mon investissement (' . $investment->getAmount() . '€)</a>';
+        }
     }
-    
     ?>
 </main>

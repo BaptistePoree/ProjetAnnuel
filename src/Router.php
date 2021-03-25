@@ -6,20 +6,34 @@ require_once("controller/Controller.php");
 class Router {
 
 	public function main() {
-
 		$view = new View($this);
 		$controller = new Controller($view);
 
 		$action = key_exists('action', $_GET) ? $_GET['action'] : 'home';
+		if(!key_exists('isLogged', $_SESSION)){
+			$action = 'login';
+		}
 
 		try {
 			switch ($action) {
-				/*
+
+			case "login":
+				if(key_exists('login', $_POST)){
+					$controller->login($_POST);
+				}else{
+					$view->makeLoginPage();
+				}
+				break;
+
+			case "logout":
+				$controller->logout();
+				break;
+				
 			case "home":
                 $view->makeHomePage();
 				break;
-				*/
-			case "home":
+				
+			/*case "home":
 				$controller->salonList();
 				break;
 			case 'createNewSalon':
@@ -28,8 +42,7 @@ class Router {
 				}else{
 					$view->makeCreateNewSalonPage();
 				}
-			//}
-			//if(){ on vérifie que la personne est connecter
+			*/
 			case "project":
 				$view->makeProjectPage();
 				break;
@@ -65,11 +78,12 @@ class Router {
 				}
 				break;
 			//}else if(){on vérifie que la personne professeur
-			case "rankings":
-				$view->makeRankingsPage();
-				break;
 			case "management":
 				$view->makeManagementPage();
+				break;
+
+			case "projectsRanking":
+				$controller->projectsRanking();
 				break;
 			//}			
 			default:

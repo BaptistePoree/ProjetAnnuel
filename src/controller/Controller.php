@@ -6,7 +6,9 @@ require_once("model/SalonBuilder.php");
 require_once("model/Investment.php");
 require_once("model/InvestmentStorage.php");
 require_once("model/InvestmentBuilder.php");
-
+require_once("model/User.php");
+require_once("model/UserStorage.php");
+//require_once("model/UserInvestments.php");
 
 class Controller {
 
@@ -17,6 +19,7 @@ class Controller {
         $this->projectStorage = new ProjectStorage($this->view);
         $this->salonStorage = new SalonStorage($this->view);
         $this->investmentStorage = new InvestmentStorage($this->view);
+        $this->userStorage = new UserStorage($this->view);
     }
 
     public function salonList(){
@@ -131,11 +134,46 @@ class Controller {
 
     public function investmentList(){
         $investmentList = $this->investmentStorage->getInvestmentList($_SESSION['userId']);
-        if($investmentList != 'error'){
-            $this->view->makeInvestmentListPage($investmentList);
+        $totalAmountInvested = $this->investmentStorage->getTotalAmountInvested($_SESSION['userId']);
+        if($investmentList != 'error' && $totalAmountInvested != 'error'){
+            $this->view->makeInvestmentListPage($investmentList, $totalAmountInvested);
         }
     }
 
+    public function projectsRanking(){
+        $projectsRanking = $this->investmentStorage->getSumOfAllInvestmentByGroup();
+        if($projectsRanking != 'error'){
+            $this->view->makeProjectsRankingPage($projectsRanking);
+        }
+    }
+
+    public function login($data){
+        if(key_exists('mail', $data) && key_exists('password', $data)){
+            $user = $this->userStorage->getUser($data['mail']);
+            if($user != 'error'){
+                if($user != null){
+                    if(password_verify($data['password'], $user->getPassword())){
+                        $_SESSION['isLogged'] = true;
+                        $_SESSION['userId'] = $user->getId();
+                        $_SESSION['role'] = $user->getRole();
+                        $this->view->makeHomePage();
+                    }else{
+                        $this->view->makeLoginPage($data);
+                    }
+                }else{
+                    $this->view->makeLoginPage($data);
+                }
+            }
+        }else{
+            $this->view->makeLoginPage($data);
+        }
+    }
+
+    public function logout(){
+        session_destroy();
+        unset($_SESSION);
+        $this->view->makeLoginPage();
+    }
 }
 
 ?>

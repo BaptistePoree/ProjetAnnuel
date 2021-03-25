@@ -1,6 +1,7 @@
 <main>
 <a href="?action=home" class="backButton"><img src="img/back_button.png" alt="Retour_Logo"><span>Retour</span></a>  
     <h2>Liste de mes investissements</h2>
+    <h3>Vous avez investi <?php echo $totalAmountInvested[0]['SUM(amount)'] ?>€ sur ---€</h3>
     <?php 
         if(sizeof($investmentList)!= 0){
             $projectStorage = new ProjectStorage($this);

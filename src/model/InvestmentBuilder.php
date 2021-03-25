@@ -13,8 +13,8 @@ class InvestmentBuilder{
 
         //Montant investi 
         if (key_exists("amount", $this->data))
-            if(!preg_match("/^[0-9.]*$/i", $this->data['amount'])){
-                $this->errors["amount"] = "Un investissement doit forcément être un entier positif";
+            if(!preg_match("/^[0-9]*000$/i", $this->data['amount'])){
+                $this->errors["amount"] = "Un investissement doit forcément être un entier positif et être un multiple de 1000";
             }
 
         //Commentaire

@@ -92,4 +92,43 @@ class InvestmentStorage{
         }
     }
 
+    public function getSumOfAllInvestmentByGroup(){
+        try{
+            $bd = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
+            $rq = "SELECT name, idProject, SUM(amount) FROM investments INNER JOIN projects ON investments.idProject = projects.id GROUP BY idProject ORDER BY amount DESC";
+            $stmt = $bd->prepare($rq);
+            $stmt->execute();
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            if($result != null){
+                return $result;
+            }else{
+                return null;
+            }
+        }catch(PDOException $e){
+            $this->view->makeErrorPage('Erreur lors d\'une requête à la base de donnée', $e->getMessage());
+            return 'error';
+        }
+    }
+
+    public function getTotalAmountInvested($userId){
+        try{
+            $bd = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
+            $rq = "SELECT SUM(amount) FROM investments WHERE idUser = :idUser";
+            $stmt = $bd->prepare($rq);
+            $data = array(
+                ":idUser" => $userId
+            );
+            $stmt->execute($data);
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            if($result != null){
+                return $result;
+            }else{
+                return null;
+            }
+        }catch(PDOException $e){
+            $this->view->makeErrorPage('Erreur lors d\'une requête à la base de donnée', $e->getMessage());
+            return 'error';
+        }
+    }
+
 }

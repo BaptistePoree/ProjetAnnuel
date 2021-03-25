@@ -21,7 +21,7 @@ class View {
         ob_start();
         include('templates/homePage.php');
         $this->content .= ob_get_clean();
-        //$this->styleSheetList[] = 'home';
+        $this->styleSheetList[] = 'home';
         $this->styleSheetList[] = 'general';
     }
 
@@ -33,13 +33,6 @@ class View {
         $this->styleSheetList[] = 'general';
     }
 
-    public function makeRankingsPage(){
-        $this->title = "Classement";
-        ob_start();
-        include('templates/rankingsPage.php');
-        $this->content .= ob_get_clean();
-        $this->styleSheetList[] = 'general';
-    }
     public function makeManagementPage(){
         $this->title = "Gestion";
         ob_start();
@@ -114,7 +107,7 @@ class View {
         $this->styleSheetList[] = 'investingPage';
     }
 
-    public function makeInvestmentListPage($investmentList){
+    public function makeInvestmentListPage($investmentList, $totalAmountInvested){
         $this->title = "Liste de mes investissement";
         ob_start();
         include('templates/investmentList.php');
@@ -130,6 +123,23 @@ class View {
         $this->content .= ob_get_clean();
         $this->styleSheetList[] = 'general';
         $this->styleSheetList[] = 'investmentSuccess';
+    }
+
+    public function makeProjectsRankingPage($projectsRankingList = null){
+        $this->title = "Classement des projets";
+        ob_start();
+        include('templates/projectsRanking.php');
+        $this->content .= ob_get_clean();
+        $this->styleSheetList[] = 'general';
+        $this->styleSheetList[] = 'investmentList';
+    }
+
+    public function makeLoginPage($data = null){
+        $this->title = "Connexion";
+        ob_start();
+        include('templates/loginPage.php');
+        $this->content .= ob_get_clean();
+        $this->styleSheetList[] = 'general';
     }
 
 	public function render() {
