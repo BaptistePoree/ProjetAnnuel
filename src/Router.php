@@ -43,9 +43,6 @@ class Router {
 					$view->makeCreateNewSalonPage();
 				}
 			*/
-			case "project":
-				$view->makeProjectPage();
-				break;
 			case "projectList":
 				$controller->projectList();
 				break;
@@ -56,36 +53,42 @@ class Router {
 					//TO-DO: Page erreur pas d'identifiant de projet placé en paramètre
 				}
 				break;
+			
 			case 'createNewProject':
-				if(key_exists('create', $_POST)){
-					$controller->createNewProject($_POST);
-				}else{
-					$view->makeCreateNewProjectPage();
-				}
-				break;
-			//}
-			//if(){ on vérifie que la personne crowd-fouder 
-			case "investmentList":
-				$controller->investmentList();
-				break;
-			case "investing":
-				if(key_exists('projectId', $_GET)){
-					if(key_exists('investing', $_POST)){
-						$controller->investing($_GET['projectId'], $_POST);
+				if($_SESSION['role'] == 1){
+					if(key_exists('create', $_POST)){
+						$controller->createNewProject($_POST);
 					}else{
-						$controller->investing($_GET['projectId']);
+						$view->makeCreateNewProjectPage();
 					}
 				}
 				break;
-			//}else if(){on vérifie que la personne professeur
-			case "management":
-				$view->makeManagementPage();
+			//}
+			case "investmentList":
+				if($_SESSION['role'] == 2){
+					$controller->investmentList();
+				}else{
+					$view->makeAccessDeniedPage();
+				}				
+				break;
+			case "investing":
+				if($_SESSION['role'] == 2){
+					if(key_exists('projectId', $_GET)){
+						if(key_exists('investing', $_POST)){
+							$controller->investing($_GET['projectId'], $_POST);
+						}else{
+							$controller->investing($_GET['projectId']);
+						}
+					}
+				}
 				break;
 
 			case "projectsRanking":
-				$controller->projectsRanking();
+				if($_SESSION['role'] == 1){
+					$controller->projectsRanking();
+				}
 				break;
-			//}			
+
 			default:
 				//TO-DO: Page defaut
 				break;

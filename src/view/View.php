@@ -25,14 +25,6 @@ class View {
         $this->styleSheetList[] = 'general';
     }
 
-    public function makeProjectPage(){
-        $this->title = "Liste des projet";
-        ob_start();
-        include('templates/projectPage.php');
-        $this->content .= ob_get_clean();
-        $this->styleSheetList[] = 'general';
-    }
-
     public function makeManagementPage(){
         $this->title = "Gestion";
         ob_start();
@@ -138,6 +130,14 @@ class View {
         $this->title = "Connexion";
         ob_start();
         include('templates/loginPage.php');
+        $this->content .= ob_get_clean();
+        $this->styleSheetList[] = 'general';
+    }
+
+    public function makeAccessDeniedPage(){
+        $this->title = "Accès refusé";
+        ob_start();
+        include('templates/accessDenied.php');
         $this->content .= ob_get_clean();
         $this->styleSheetList[] = 'general';
     }
