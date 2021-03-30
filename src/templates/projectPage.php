@@ -34,7 +34,7 @@
         if($investment == null){
             echo '<a href=".?action=investing&projectId=' . $project->getId() . '" class="button">Investir dans ce projet</a>';
         }else{
-            echo '<a href=".?action=investing&projectId=' . $project->getId() . '" class="button">Modifier mon investissement (' . $investment->getAmount() . '€)</a>';
+            echo '<a href=".?action=investing&projectId=' . $project->getId() . '" class="button">Modifier mon investissement (' . number_format($investment->getAmount(), 0, ',', ' ') . '€)</a>';
         }
     }
     ?>

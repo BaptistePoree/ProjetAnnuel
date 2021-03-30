@@ -7,6 +7,7 @@ class User{
     protected $firstName;
     protected $lastName;
     protected $role;
+    protected $canInvest;
 
     public function __construct($data = null){
         $this->id = (key_exists("id", $data))? $data["id"] : null;
@@ -15,6 +16,7 @@ class User{
         $this->firstName = (key_exists("firstName", $data))? $data["firstName"] : null;
         $this->lastName = (key_exists("lastName", $data))? $data["lastName"] : null;
         $this->role = (key_exists("role", $data))? $data["role"] : null;
+        $this->canInvest = (key_exists("canInvest", $data))? $data["canInvest"] : null;
     }
 
     public function getId(){
@@ -39,6 +41,10 @@ class User{
 
     public function getRole(){
         return $this->role;
+    }
+
+    public function getCanInvest(){
+        return $this->canInvest;
     }
 }
 

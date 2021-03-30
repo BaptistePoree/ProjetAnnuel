@@ -4,7 +4,7 @@ require_once("model/Investment.php");
 
 class InvestmentStorage{
 
-    public function __construct(View $view) {
+    public function __construct(View $view = null) {
         $this->view = $view;
     }
 
@@ -95,9 +95,30 @@ class InvestmentStorage{
     public function getSumOfAllInvestmentByGroup(){
         try{
             $bd = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
-            $rq = "SELECT name, idProject, SUM(amount) FROM investments INNER JOIN projects ON investments.idProject = projects.id GROUP BY idProject ORDER BY amount DESC";
+            $rq = "SELECT name, idProject, SUM(amount) FROM investments INNER JOIN projects ON investments.idProject = projects.id GROUP BY idProject ORDER BY SUM(amount) DESC";
             $stmt = $bd->prepare($rq);
             $stmt->execute();
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            if($result != null){
+                return $result;
+            }else{
+                return null;
+            }
+        }catch(PDOException $e){
+            $this->view->makeErrorPage('Erreur lors d\'une requête à la base de donnée', $e->getMessage());
+            return 'error';
+        }
+    }
+
+    public function getAllInvestmentOfProject($projectId){
+        try{
+            $bd = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
+            $rq = "SELECT users.firstName, users.lastName, investments.idProject, investments.amount, investments.comment FROM investments INNER JOIN users ON investments.idUser = users.id WHERE investments.idProject = :projectId ORDER BY investments.amount DESC";
+            $stmt = $bd->prepare($rq);
+            $data = array(
+                ":projectId" => $projectId
+            );
+            $stmt->execute($data);
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
             if($result != null){
                 return $result;
@@ -119,6 +140,46 @@ class InvestmentStorage{
                 ":idUser" => $userId
             );
             $stmt->execute($data);
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            if($result != null){
+                return $result;
+            }else{
+                return null;
+            }
+        }catch(PDOException $e){
+            $this->view->makeErrorPage('Erreur lors d\'une requête à la base de donnée', $e->getMessage());
+            return 'error';
+        }
+    }
+
+    public function getTotalAmountInvestedExceptSpecifiedProject($userId, $projectId){
+        try{
+            $bd = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
+            $rq = "SELECT SUM(amount) FROM investments WHERE idUser = :idUser AND idProject != :projectId";
+            $stmt = $bd->prepare($rq);
+            $data = array(
+                ":idUser" => $userId,
+                ":projectId" => $projectId
+            );
+            $stmt->execute($data);
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            if($result != null){
+                return $result;
+            }else{
+                return null;
+            }
+        }catch(PDOException $e){
+            $this->view->makeErrorPage('Erreur lors d\'une requête à la base de donnée', $e->getMessage());
+            return 'error';
+        }
+    }
+
+    public function exportAllInvestment(){
+        try{
+            $bd = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
+            $rq = "SELECT projects.name, users.lastName, users.firstName, investments.amount, investments.comment FROM investments INNER JOIN projects ON investments.idProject = projects.id INNER JOIN users ON investments.idUser = users.id ORDER BY investments.idProject";
+            $stmt = $bd->prepare($rq);
+            $stmt->execute();
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
             if($result != null){
                 return $result;

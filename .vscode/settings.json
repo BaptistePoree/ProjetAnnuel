@@ -1,0 +1,27 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "TP",
+            "database": "dylan",
+            "username": "dylan",
+            "password": "dYLAN2702"
+        },
+        {
+            "mysqlOptions": {
+                "authProtocol": "default"
+            },
+            "previewLimit": 50,
+            "server": "sql11.freemysqlhosting.net",
+            "port": 3306,
+            "driver": "MySQL",
+            "name": "ProjetAnnuel",
+            "database": "sql11400485",
+            "username": "sql11400485",
+            "password": "Z4WXpGXMQF"
+        }
+    ]
+}

@@ -4,7 +4,6 @@ body{
 }
 .backButton{
     text-decoration: none;
-    vertical-align: middle;
     color: #0379FB;
 }
 .backButton img{
@@ -13,4 +12,36 @@ body{
 }
 .backButton span{
     vertical-align: middle;
+}
+h1 {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+input[type="submit"] {
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 10px;
+
+    transition-property: color, background;
+    transition-duration: .2s;
+}
+
+input[type="submit"]:focus {
+    outline: none;
+}
+
+input[type="submit"]:hover {
+    background: gray;
+    color: white;
+}
+
+form span {
+    color: red;
+}
+
+.form div{
+    margin: 20px;
 }

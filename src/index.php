@@ -2,7 +2,9 @@
 require_once("config.php");
 require_once("Router.php");
 session_start();
-//Pour les test en attendant crétaion la table des utilisateur on défini un id temporaire, ici 1
+error_reporting(E_ALL);
+ini_set('display_errors', TRUE);
+ini_set('display_startup_errors', TRUE);
 $router = new Router();
 $router->main();
 ?>

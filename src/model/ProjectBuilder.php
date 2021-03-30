@@ -37,7 +37,11 @@ class ProjectBuilder{
     }
 
     public function buildProject(){
-        $this->data['projectMember'] = json_encode($this->data['projectMember']);
+        if(key_exists('projectMember', $this->data)){
+            $this->data['projectMember'] = json_encode($this->data['projectMember']);
+        }else{
+            $this->data['projectMember'] = null;
+        }
 
         return new Project($this->data);
     }

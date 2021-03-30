@@ -61,6 +61,8 @@ class Router {
 					}else{
 						$view->makeCreateNewProjectPage();
 					}
+				}else{
+					$view->makeAccessDeniedPage();
 				}
 				break;
 			//}
@@ -80,15 +82,40 @@ class Router {
 							$controller->investing($_GET['projectId']);
 						}
 					}
+				}else{
+					$view->makeAccessDeniedPage();
+				}
+				break;
+
+			case "validateInvestmentList":
+				if($_SESSION['role'] == 2){
+					$controller->validateInvestments();
+				}else{
+					$view->makeAccessDeniedPage();
 				}
 				break;
 
 			case "projectsRanking":
 				if($_SESSION['role'] == 1){
-					$controller->projectsRanking();
+					if(key_exists('projectId', $_GET)){
+						$controller->projectsRankingDetails($_GET['projectId']);
+					}else{
+						$controller->projectsRanking();
+					}
+				}else{
+					$view->makeAccessDeniedPage();
 				}
 				break;
 
+			case "exportAllInvestments":
+				if($_SESSION['role'] == 1){
+					$controller->exportAllInvestment();
+				}else{
+					$view->makeAccessDeniedPage();
+				}
+				break;
+
+				
 			default:
 				//TO-DO: Page defaut
 				break;

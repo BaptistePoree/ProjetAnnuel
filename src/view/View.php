@@ -71,12 +71,13 @@ class View {
     public function makeCreateNewProjectPage($projectBuilder = null){
         $this->title = "Ajouter un projet";
         $this->content .= '<main><a href="?action=home" class="backButton"><img src="img/back_button.png" alt="Retour_Logo"><span>Retour</span></a>  ';
-        $this->content .= '<form method="POST" action=".?action=createNewProject">';
+        $this->content .= '<h2>Ajouter un projet</h2><form method="POST" action=".?action=createNewProject">';
         ob_start();
         include('templates/projectForm.php');
         $this->content .= ob_get_clean();
         $this->content .= '<input type="submit" name="create" value="Ajouter projet"></form></main>';
         $this->styleSheetList[] = 'general';
+        $this->styleSheetList[] = 'projectForm';
     }
 
     public function makeCreateNewSalonPage($salonBuilder = null){
@@ -99,7 +100,7 @@ class View {
         $this->styleSheetList[] = 'investingPage';
     }
 
-    public function makeInvestmentListPage($investmentList, $totalAmountInvested){
+    public function makeInvestmentListPage($investmentList, $totalAmountInvested, $maximumInvestment){
         $this->title = "Liste de mes investissement";
         ob_start();
         include('templates/investmentList.php');
@@ -126,12 +127,22 @@ class View {
         $this->styleSheetList[] = 'investmentList';
     }
 
+    public function makeProjectsRankingDetailsPage($project = null, $allInvestmentOfProject = null){
+        $this->title = "Détails des investissements";
+        ob_start();
+        include('templates/projectsRankingDetails.php');
+        $this->content .= ob_get_clean();
+        $this->styleSheetList[] = 'general';
+        $this->styleSheetList[] = 'investmentList';
+    }
+
     public function makeLoginPage($data = null){
         $this->title = "Connexion";
         ob_start();
         include('templates/loginPage.php');
         $this->content .= ob_get_clean();
         $this->styleSheetList[] = 'general';
+        $this->styleSheetList[] = 'login';
     }
 
     public function makeAccessDeniedPage(){
