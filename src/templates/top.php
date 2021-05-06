@@ -18,7 +18,9 @@
     <?php
     if ($this->styleSheetList != null) {
         foreach ($this->styleSheetList as $styleSheet) {
-            echo '<link rel="stylesheet" media="screen" href="css/' . $styleSheet . '.css"/>';
+            echo '<link rel="stylesheet" media="screen" href="css/' . $styleSheet . '.css"/>'; 
+            echo'
+    ';
         }
     }
     ?>

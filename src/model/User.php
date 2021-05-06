@@ -15,8 +15,9 @@ class User{
         $this->password = (key_exists("password", $data))? $data["password"] : null;
         $this->firstName = (key_exists("firstName", $data))? $data["firstName"] : null;
         $this->lastName = (key_exists("lastName", $data))? $data["lastName"] : null;
-        $this->role = (key_exists("role", $data))? $data["role"] : null;
+        $this->role = (key_exists("idRole", $data))? $data["idRole"] : null;
         $this->canInvest = (key_exists("canInvest", $data))? $data["canInvest"] : null;
+        $this->cles = (key_exists("idCles", $data))? $data["idCles"] : null;
     }
 
     public function getId(){

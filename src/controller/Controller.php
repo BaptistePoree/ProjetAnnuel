@@ -10,6 +10,9 @@ require_once("model/User.php");
 require_once("model/UserStorage.php");
 require_once("model/SettingsStorage.php");
 //require_once("model/UserInvestments.php");
+require_once("model/ClesStorage.php");
+require_once("model/ClesBuilder.php");
+
 
 class Controller {
 
@@ -22,6 +25,7 @@ class Controller {
         $this->investmentStorage = new InvestmentStorage($this->view);
         $this->userStorage = new UserStorage($this->view);
         $this->settingsStorage = new SettingsStorage();
+        $this->clesStorage = new ClesStorage($this->view);
     }
 /*
     public function salonList(){
@@ -204,6 +208,33 @@ class Controller {
             exit;
         }
     }
+
+    public function parametreClesPage(){
+        $listeClesRole = $this->clesStorage->getListeClesRole();
+        echo '<pre>';
+        var_export($this->clesStorage->getListeCles());
+        echo '</pre>';
+        $this->view->makeParametreClesPage($listeClesRole);
+    }
+
+    public function createNewCles($data){
+        var_export($data);
+        $clesBuilder = new ClesBuilder($data);
+        if ($clesBuilder->isValid()) {
+            $cles = $clesBuilder->buildCles();
+            echo "<br>";
+            print_r($cles);
+            $response = $this->clesStorage->addCles($cles);
+            echo $response;
+            if ($response != 'error') {
+                $this->parametreClesPage();
+                //TO-DO: Pour l'instant une fois ajouter, est affiché la page du projet qui vient d'être créer. Peut-être à la place un page indiquant que le projet à bien été ajouté, et 3 boutons: -Voir fiche projet, -ajouter un autre projet, -retourner à l'accueil
+            }
+        }else{
+            $this->parametreClesPage();
+        }
+    }
+
 
     public function login($data){
         if(key_exists('mail', $data) && key_exists('password', $data)){

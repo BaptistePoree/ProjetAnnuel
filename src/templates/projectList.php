@@ -7,7 +7,8 @@
     } else {
         echo '<ul>';
         foreach ($listOfProject as $project) {
-            echo '<li><a href="?action=showProject&projectId=' . $project['id'] . '">' . $project['name'] . '</a></li>';
+            echo '<li><a href="?action=showProject&projectId=' . $project['id'] . '">' . $project['name'] . '</a></li>
+        ';
         }
         echo '</ul>';
     }

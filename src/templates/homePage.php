@@ -10,6 +10,7 @@
                     echo '
                     <li><a href="index.php?action=projectsRanking"><img src="img/rank.png"><span>Classement des projets</span></a></li>
                     <li><a href=".?action=createNewProject"><img src="img/add.png"><span>Ajouter projet</span></a></li>
+                    <li><a href="index.php?action=parametrePageGeneral"><img src="img/management.png"><span>Parametre</span></a></li>
                     ';
                 }
                 if($_SESSION['role'] == 2){

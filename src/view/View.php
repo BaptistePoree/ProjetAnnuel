@@ -153,6 +153,47 @@ class View {
         $this->styleSheetList[] = 'general';
     }
 
+    public function makeParametrePage(){
+        $this->title = "Parametre";
+        ob_start();
+        include('templates/parametre.php');
+        $this->content .= ob_get_clean();
+        $this->styleSheetList[] = 'general';
+        $this->styleSheetList[] = 'parametreList';
+    }
+
+    public function makeParametreControlePage(){
+        $this->title = "Parametre";
+        ob_start();
+        include('templates/parametreControle.php');
+        $this->content .= ob_get_clean();
+        $this->styleSheetList[] = 'general';
+        $this->styleSheetList[] = 'parametreList';
+    }
+
+    public function makeParametreClesPage($listeClesRole = null, $clesBuilder = null){
+        $this->title = "Parametre";
+        $this->content .= '<main>';
+        $this->content .= '<a href="?action=parametrePageGeneral" class="backButton"><img src="img/back_button.png" alt="Retour_Logo"><span>Retour</span></a>';
+        $this->content .= '<h2> Parametre De Generation De Cles du Salon </h2>';
+        ob_start();
+        include('templates/parametreClesFrom.php');
+        include('templates/parametreCles.php');
+        $this->content .= ob_get_clean();
+        $this->content .= '</main>';
+        $this->styleSheetList[] = 'general';
+        $this->styleSheetList[] = 'parametreList';
+    }
+
+    public function makeParametreRolePage(){
+        $this->title = "Parametre";
+        ob_start();
+        include('templates/parametreRole.php');
+        $this->content .= ob_get_clean();
+        $this->styleSheetList[] = 'general';
+        $this->styleSheetList[] = 'parametreList';
+    }
+
 	public function render() {
         include("templates/top.php");
         echo $this->content;

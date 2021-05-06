@@ -114,6 +114,50 @@ class Router {
 					$view->makeAccessDeniedPage();
 				}
 				break;
+			
+			case "parametrePageGeneral":
+				if($_SESSION['role'] == 1){
+					$view->makeParametrePage();
+				}else{
+					$view->makeAccessDeniedPage();
+				}			
+				break;
+
+			case 'parametreControle':
+				if($_SESSION['role'] == 1){
+					$view->makeParametreControlePage();
+				}else{
+					$view->makeAccessDeniedPage();
+				}
+				break;
+
+			case 'parametreCle':
+				if($_SESSION['role'] == 1){
+					$controller->parametreClesPage();
+				}else{
+					$view->makeAccessDeniedPage();
+				}
+				break;
+
+			case 'createNewCles':
+				if($_SESSION['role'] == 1){
+					if(key_exists('create', $_POST)){
+						$controller->createNewCles($_POST);
+					}else{
+						// $view->makeCreateNewProjectPage();
+					}
+				}else{
+					$view->makeAccessDeniedPage();
+				}
+				break;
+
+			case 'parametreRole':
+				if($_SESSION['role'] == 1){
+					$view->makeParametreRolePage();
+				}else{
+					$view->makeAccessDeniedPage();
+				}
+				break;		
 
 				
 			default:
