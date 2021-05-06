@@ -56,6 +56,13 @@ class ClesStorage{
         }
     }
 
+    public function estUnique($cle) {
+        $bd = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
+        $rq = $bd->prepare("SELECT * FROM cles WHERE cles = ?");
+        $rq->execute(array($cle));
+        return $rq->rowCount() == 0;
+    }
+
     public function getListeCles(){
         try{
 
