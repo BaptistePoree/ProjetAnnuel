@@ -12,5 +12,7 @@
         ?>
         <button type="submit" name="login" value="login">Connexion</button>
     </form>
+    <p>Pas encore de compte ? <a href="sign-in">S'inscrire</a></p>
+
     <p style="text-align: left; font-style:italic;">Démo pour test:<br>Admin: email: admin@email.fr; Mot de passe: admin@email.fr;<br>Crowdfunder 1: email: exemple1@email.fr; Mot de passe: exemple1@email.fr;<br>Crowdfunder 2: email: exemple2@email.fr; Mot de passe: exemple2@email.fr;<br></p>
 </main>

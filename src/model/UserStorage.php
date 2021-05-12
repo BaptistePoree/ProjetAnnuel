@@ -34,7 +34,15 @@ class UserStorage{
         $key = htmlspecialchars($data['key']);
 
         $bd = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
-        //$req = $bd->prepare("INSERT INTO users ")
+        $req = $bd->prepare("INSERT INTO users(mail, password, firstName, lastName, idCles) VALUE(?, ?, ?, ?, ?)");
+
+        try {
+            $bd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $req->execute(array($email, $password, $name, $surname, $key));
+        } catch (PDOException $e) {
+            $this->view->makeErrorPage('Erreur lors de l\'inscription.', $e->getMessage());
+        }
+        
     }
 
     public function getUserById($userId){

@@ -235,7 +235,8 @@ class Controller {
         if(key_exists('surname', $data) && key_exists('name', $data) && key_exists('email', $data)&& key_exists('password', $data)&& key_exists('key', $data)){
             $user = $this->userStorage->getUser($data['mail']);
             if($user == null){
-                
+                $this->userStorage->addUser($data);
+                $this->view->makeLoginPage($data);
             }
         }
     }
