@@ -17,6 +17,14 @@ class Router {
 		try {
 			switch ($action) {
 
+			case "register":
+				if(key_exists('register', $_POST)){
+					$controller->register($_POST);
+				} else {
+					$view->makeRegisterPage();
+				}
+				break;
+
 			case "login":
 				if(key_exists('login', $_POST)){
 					$controller->login($_POST);
@@ -171,5 +179,3 @@ class Router {
 	}
 
 }
-
-?>

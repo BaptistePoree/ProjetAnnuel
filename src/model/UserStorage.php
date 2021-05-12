@@ -26,6 +26,17 @@ class UserStorage{
         }
     }
 
+    public function addUser($data){
+        $surname = htmlspecialchars($data['surname']);
+        $name = htmlspecialchars($data['name']);
+        $email = htmlspecialchars($data['email']);
+        $password = sha1($data['password']);
+        $key = htmlspecialchars($data['key']);
+
+        $bd = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
+        //$req = $bd->prepare("INSERT INTO users ")
+    }
+
     public function getUserById($userId){
         $bd = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
 		$rq = "SELECT * FROM users WHERE id = :userId";

@@ -231,6 +231,14 @@ class Controller {
         }
     }
 
+    public function register($data){
+        if(key_exists('surname', $data) && key_exists('name', $data) && key_exists('email', $data)&& key_exists('password', $data)&& key_exists('key', $data)){
+            $user = $this->userStorage->getUser($data['mail']);
+            if($user == null){
+                
+            }
+        }
+    }
 
     public function login($data){
         if(key_exists('mail', $data) && key_exists('password', $data)){

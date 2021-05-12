@@ -136,6 +136,15 @@ class View {
         $this->styleSheetList[] = 'investmentList';
     }
 
+    public function makeRegisterPage() {
+        $this->title = "Inscription";
+        ob_start();
+        include('template/registerPage.php');
+        $this->content .= ob_get_clean();
+        $this->styleSheetList[] = 'general';
+        $this->styleSheetList[] = 'register';
+    }
+
     public function makeLoginPage($data = null){
         $this->title = "Connexion";
         ob_start();
@@ -200,4 +209,3 @@ class View {
         include("templates/bottom.php");
     }
 }
-?>
