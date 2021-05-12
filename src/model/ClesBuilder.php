@@ -28,7 +28,7 @@ class ClesBuilder{
     }
 
     public function getErrors($ref) {
-    return key_exists($ref, $this->errors)? $this->errors[$ref]: null;
+        return key_exists($ref, $this->errors)? $this->errors[$ref]: null;
     }
 
     public function getData($ref) {
@@ -37,7 +37,6 @@ class ClesBuilder{
 
     public function buildCles(){
         $this->data["idRole"] = $this->data["roleChoisi"];
-        // TO-DO: generer une cles aleroire
         $this->data["cles"] = bin2hex(random_bytes(15));
         return new Cles($this->data);
     }

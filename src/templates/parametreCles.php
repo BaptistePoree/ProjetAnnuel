@@ -4,11 +4,33 @@
         <?php $bdListeCles = new ClesStorage($this); ?>
         <table class="listeClesRole">
             <thead>
-                <tr><th>type de roles</th> <th>Cles Generais</th> <th>Validations de la Cles</th> </tr>
+                <tr><th>type de roles</th> <th>Cles Generais</th> <th>Supprimer Cles</th> </tr>
             </thead>
             <tbody> 
                 <?php foreach ($listeClesRole as $item):?>
-                <tr> <td class="roles"> <?= $item['nomRole'] ?> </td> <td class="cles" > <?= $item['cles'] ?> </td> <td class="checkbox"> <?= ($item['isValider'] != null)? '<img src="img/checkbox/checkbox-30-16.png">' : '<img src="img/checkbox/checkbox-6-16.png">' ; ?> </td> </tr>
+                <tr> 
+                    <?php ($item['isValider'] != null)? $color = "green" : $color = "red" ; ?>
+
+
+                    <td class="roles"> <?= $item['nomRole'] ?> </td>
+                    <!-- <td class="cles" > <?php //echo $item['cles'] ?> </td>  -->
+                    <td class="cles" style="color:<?= $color ?>;"> <?= $item['cles'] ?> </td>
+                    <!-- <td class="checkbox"> <?php //($item['isValider'] != null)? echo'<img src="img/checkbox/checkbox-30-16.png">' : echo'<img src="img/checkbox/checkbox-6-16.png">' ; ?> </td>  -->
+                    
+                    
+                    <td class="supresion"> 
+                        <?php if ($item['isValider'] === null): ?>
+                            <input type='checkbox' name='delete[]' value="<?= $item['id'] ?>">
+                        <?php endif; ?>
+                    </td>
+
+
+
+
+
+
+
+                </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>

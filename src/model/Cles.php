@@ -23,10 +23,6 @@ class Cles{
         return $this->cles;
     }
 
-    public function __toString(){
-        return $this->getId() + " " + $this->getRole() + " " + $this->getCles(); 
-    }
-
 }
 
 ?>

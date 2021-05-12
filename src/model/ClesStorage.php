@@ -17,8 +17,6 @@ class ClesStorage{
                 ":idRole" => $cles->getRole(),
                 ":cles" => $cles->getCles()
             );
-            echo "<br> coucou";
-            print_r($data);
             if($stmt->execute($data)){
                 return $bd->lastInsertId(); 
             }
@@ -29,7 +27,6 @@ class ClesStorage{
         }
         catch(Exception $e)
         {
-            var_export($cles);
             $this->view->makeErrorPage('Erreur lors d\'une requête à la base de donnée', $e->getMessage());
             return 'error';
         }
@@ -40,7 +37,7 @@ class ClesStorage{
         try{
 
             $bd = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
-            $rq = "SELECT role.nomRole, cles.idRole, cles.cles, cles.isValider FROM cles, role  WHERE role.id = cles.idRole";
+            $rq = "SELECT role.nomRole, cles.idRole, cles.id, cles.cles, cles.isValider FROM cles, role  WHERE role.id = cles.idRole";
             $stmt = $bd->query($rq);
             
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);

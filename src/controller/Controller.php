@@ -211,24 +211,20 @@ class Controller {
 
     public function parametreClesPage(){
         $listeClesRole = $this->clesStorage->getListeClesRole();
-        echo '<pre>';
-        var_export($this->clesStorage->getListeCles());
-        echo '</pre>';
         $this->view->makeParametreClesPage($listeClesRole);
     }
 
     public function createNewCles($data){
-        var_export($data);
         $clesBuilder = new ClesBuilder($data);
         if ($clesBuilder->isValid()) {
             $cles = $clesBuilder->buildCles();
-            echo "<br>";
-            print_r($cles);
+            while(!$this->clesStorage->estUnique($cles->getCles()))
+            {
+                $cles = $clesBuilder->buildCles();
+            }
             $response = $this->clesStorage->addCles($cles);
-            echo $response;
             if ($response != 'error') {
                 $this->parametreClesPage();
-                //TO-DO: Pour l'instant une fois ajouter, est affiché la page du projet qui vient d'être créer. Peut-être à la place un page indiquant que le projet à bien été ajouté, et 3 boutons: -Voir fiche projet, -ajouter un autre projet, -retourner à l'accueil
             }
         }else{
             $this->parametreClesPage();
