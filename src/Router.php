@@ -12,7 +12,7 @@ class Router
 		$controller = new Controller($view);
 
 		$action = key_exists('action', $_GET) ? $_GET['action'] : 'home';
-		if (!key_exists('isLogged', $_SESSION) && $_GET['action'] != "sign-in") {
+		if (!key_exists('isLogged', $_SESSION) && key_exists($action, ['sign-in', 'register'])) {
 			$action = 'login';
 		}
 

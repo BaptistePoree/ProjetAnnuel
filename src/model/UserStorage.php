@@ -27,11 +27,11 @@ class UserStorage{
     }
 
     public function addUser($data){
-        $surname = htmlspecialchars($data['surname']);
-        $name = htmlspecialchars($data['name']);
-        $email = htmlspecialchars($data['email']);
+        $surname = htmlspecialchars($data['firstName']);
+        $name = htmlspecialchars($data['lastName']);
+        $email = htmlspecialchars($data['mail']);
         $password = sha1($data['password']);
-        $key = htmlspecialchars($data['key']);
+        $key = htmlspecialchars($data['cles']);
 
         $bd = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
         $req = $bd->prepare("INSERT INTO users(mail, password, firstName, lastName, idCles) VALUE(?, ?, ?, ?, ?)");
