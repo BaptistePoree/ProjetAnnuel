@@ -142,6 +142,7 @@ class View {
         include('templates/registerPage.php');
         $this->content .= ob_get_clean();
         $this->styleSheetList[] = 'general';
+        $this->styleSheetList[] = 'login';
         $this->styleSheetList[] = 'register';
     }
 
