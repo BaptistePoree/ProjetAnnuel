@@ -139,7 +139,7 @@ class View {
     public function makeRegisterPage() {
         $this->title = "Inscription";
         ob_start();
-        include('template/registerPage.php');
+        include('templates/registerPage.php');
         $this->content .= ob_get_clean();
         $this->styleSheetList[] = 'general';
         $this->styleSheetList[] = 'register';
