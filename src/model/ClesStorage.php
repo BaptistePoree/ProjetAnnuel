@@ -80,8 +80,25 @@ class ClesStorage{
         }
     }
 
-
-
+    public function getIdRoleAndIdCles($cles){
+        $bd = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
+		$rq = "SELECT idRole, idCles FROM cles WHERE cles = :cles";
+		$stmt = $bd->prepare($rq);
+		$data = array(":cles" => $cles);
+        try{
+            $bd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $stmt->execute($data);
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            if(sizeof($result) === 0){
+                return null;
+            }else{
+                return new User($result[0]);
+            }
+        }catch(PDOException $e){
+            $this->view->makeErrorPage('Erreur lors d\'une requête à la base de donnée', $e->getMessage());
+            return 'error';
+        }
+    }
 }
 
 
