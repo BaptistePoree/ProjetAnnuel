@@ -49,4 +49,6 @@ if ($userBuilder != null) {
     <?php endif; ?>
     <button type="submit" name="register" value="register">S'inscrire</button>
   </form>
+
+  <p>Deja un compte ? <a href="index.php?action=login">Connexion</a></p>
 </main>

@@ -232,7 +232,7 @@ class Controller {
     }
 
     public function register($data){
-        var_export($data);
+        //var_export($data);
         if(key_exists('firstName', $data) 
         && key_exists('lastName', $data) 
         && key_exists('mail', $data)
@@ -240,9 +240,13 @@ class Controller {
         && key_exists('cles', $data)
         ){
             $user = $this->userStorage->getUser($data['mail']);
-            if($user == null){
+            // var_export($this->clesStorage->getIdRoleAndIdCles($data['cles']));
+
+            if($user == null && $this->clesStorage->estUnique($data['cles'])){
                 $this->userStorage->addUser($data);
                 // TO-DO: idCles et idRole  : Modifier
+                // $liste = $this->clesStorage->getIdRoleAndIdCles($data['cles']);
+                // var_export($liste);
                 $this->view->makeLoginPage($data);
             }
             else{
