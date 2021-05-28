@@ -54,10 +54,29 @@ class ClesStorage{
     }
 
     public function estUnique($cle) {
+        $rq = $this->getCle($cle);
+        return $rq->rowCount() == 0;
+    }
+
+    public function isValide($cle){
+        $result = $this->getCle($cle);
+        if($result){
+            return !$result["isValider"];
+        }
+        return false;
+    } 
+
+    public function getRoleByCle($cle){
+        $rq = $this->getCle($cle);
+        $result = $rq->fetch();
+        return $result["idRole"];
+    }
+
+    public function getCle($cle){
         $bd = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
         $rq = $bd->prepare("SELECT * FROM cles WHERE cles = ?");
         $rq->execute(array($cle));
-        return $rq->rowCount() == 0;
+        return $rq;
     }
 
     public function getListeCles(){
