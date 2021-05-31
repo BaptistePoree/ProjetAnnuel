@@ -258,7 +258,7 @@ class Controller
             if ($user == null) {
                 if ($this->clesStorage->isValide($data['cles'])) {
                     $data['idRole'] = $this->clesStorage->getRoleByCle($data['cles']);
-                    var_dump($data);
+                    $data['idCles'] = $this->clesStorage->getId($data['cles']);
                     $this->userStorage->addUser($data);
                     $this->clesStorage->setValid($data['cles']);
                     $this->view->makeLoginPage($data);

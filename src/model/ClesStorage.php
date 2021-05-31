@@ -64,7 +64,6 @@ class ClesStorage
         $rq = $this->getCle($cle);
         $result = $rq->fetch();
         if ($result) {
-            var_dump($result);
             return !$result["isValider"];
         }
         return false;
@@ -86,7 +85,6 @@ class ClesStorage
     {
         $rq = $this->getCle($cle);
         $result = $rq->fetch();
-        var_dump($result);
         return $result["idRole"];
     }
 
@@ -96,6 +94,13 @@ class ClesStorage
         $rq = $bd->prepare("SELECT * FROM cles WHERE cles = ?");
         $rq->execute(array($cle));
         return $rq;
+    }
+
+    public function getId($cle)
+    {
+        $rq = $this->getCle($cle);
+        $result = $rq->fetch();
+        return $result['id'];
     }
 
     public function getListeCles()
