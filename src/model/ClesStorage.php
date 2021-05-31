@@ -59,8 +59,9 @@ class ClesStorage{
     }
 
     public function isValide($cle){
-        $result = $this->getCle($cle);
-        if($result){
+        $rq = $this->getCle($cle);
+        if($rq){
+            $result = $rq->fetch(); 
             return !$result["isValider"];
         }
         return false;
@@ -102,6 +103,3 @@ class ClesStorage{
 
 
 }
-
-
-?>
