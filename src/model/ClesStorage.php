@@ -70,10 +70,23 @@ class ClesStorage
         return false;
     }
 
+    public function setValid($cle)
+    {
+        try {
+            $bd = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
+            $rq = $bd->prepare("UPDATE cles SET isValider = ? WHERE cles = ?");
+            $rq->execute(array(true, $cle));
+        } catch (PDOException $e) {
+            $this->view->makeErrorPage('Erreur lors d\'une requête à la base de donnée', $e->getMessage());
+            return 'error';
+        }
+    }
+
     public function getRoleByCle($cle)
     {
         $rq = $this->getCle($cle);
         $result = $rq->fetch();
+        var_dump($result);
         return $result["idRole"];
     }
 
