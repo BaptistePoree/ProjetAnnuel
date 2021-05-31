@@ -179,7 +179,7 @@ class Controller
             } else {
                 $this->userStorage->disableCanEditing($_SESSION['userId']);
                 //TO-DO: Page propre avec "Vous avez validez vos investissements
-                $this->view->makeHomePage();
+                $this->view->makeHomePage(true);
             }
         }
     }

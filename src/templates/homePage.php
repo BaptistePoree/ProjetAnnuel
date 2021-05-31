@@ -1,5 +1,10 @@
 <main>
     <img alt="crowdfunding logo" src="img/logo.png" width="100px">
+    <?php
+    if($valid){
+        echo "<h3 style='color: green;'>Vos investissements ont bien été validés</h3>";
+    }
+    ?>
     <h1>Salon de Crowd-funding</h1>
     <nav>
         <ul>

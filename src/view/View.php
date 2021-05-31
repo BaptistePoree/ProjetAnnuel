@@ -16,7 +16,7 @@ class View {
         $this->styleSheetList = array();
     }
 
-    public function makeHomePage(){
+    public function makeHomePage($valid = false){
         $this->title = "Accueil";
         ob_start();
         include('templates/homePage.php');
