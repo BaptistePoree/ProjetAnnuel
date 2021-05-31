@@ -146,7 +146,7 @@ class View {
         $this->styleSheetList[] = 'register';
     }
 
-    public function makeLoginPage($data = null){
+    public function makeLoginPage($data = null, $newUser = false){
         $this->title = "Connexion";
         ob_start();
         include('templates/loginPage.php');

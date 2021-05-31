@@ -1,6 +1,11 @@
 <main>
     <img src="img/logo.png" alt='Logo' width="50px">
     <h1>Salon de Crowdfunding</h1>
+    <?php
+    if ($msg != null) {
+        echo "<h3 style='color: green;'>Votre compte a bien été créé</h3>";
+    }
+    ?>
     <h2>Veuillez vous authentifier</h2>
     <form method="POST" action=".?action=login">
         <input type="text" name="mail" placeholder="Adresse mail" id="mail">

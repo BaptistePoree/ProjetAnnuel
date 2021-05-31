@@ -261,7 +261,7 @@ class Controller
                     $data['idCles'] = $this->clesStorage->getId($data['cles']);
                     $this->userStorage->addUser($data);
                     $this->clesStorage->setValid($data['cles']);
-                    $this->view->makeLoginPage($data);
+                    $this->view->makeLoginPage($data, true);
                 } else {
                     $this->view->makeRegisterPage();
                 }
