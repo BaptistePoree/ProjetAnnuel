@@ -246,13 +246,13 @@ class Controller
 
     public function register($data)
     {
-        var_export($data);
         if (
             key_exists('firstName', $data)
             && key_exists('lastName', $data)
             && key_exists('mail', $data)
             && key_exists('password', $data)
             && key_exists('cles', $data)
+
         ) {
             $user = $this->userStorage->getUser($data['mail']);
             if ($user == null) {
