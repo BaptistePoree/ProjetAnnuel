@@ -32,6 +32,7 @@ class UserStorage{
         $email = htmlspecialchars($data['mail']);
         $password = sha1($data['password']);
         $key = htmlspecialchars($data['cles']);
+        $
 
         $bd = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
         $req = $bd->prepare("INSERT INTO users(mail, password, firstName, lastName, idCles) VALUE(?, ?, ?, ?, ?)");
@@ -68,37 +69,6 @@ class UserStorage{
     public function disableCanEditing($userId){
         $bd = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
 		$rq = "UPDATE users SET canInvest = 0 WHERE id = :userId";
-		$stmt = $bd->prepare($rq);
-		$data = array(":userId" => $userId);
-        try{
-            $bd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            if($stmt->execute($data)){
-                return true;
-            }
-        }catch(PDOException $e){
-            $this->view->makeErrorPage('Erreur lors d\'une requête à la base de donnée', $e->getMessage());
-            return 'error';
-        } 
-    }
-
-    public function idRoleEditing($userId, $idRole){
-        $bd = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
-		$rq = "UPDATE users SET idRole = $idRole WHERE id = :userId";
-		$stmt = $bd->prepare($rq);
-		$data = array(":userId" => $userId);
-        try{
-            $bd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            if($stmt->execute($data)){
-                return true;
-            }
-        }catch(PDOException $e){
-            $this->view->makeErrorPage('Erreur lors d\'une requête à la base de donnée', $e->getMessage());
-            return 'error';
-        } 
-    }
-    public function idClesEditing($userId, $idCles){
-        $bd = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
-		$rq = "UPDATE users SET idCles = $idCles WHERE id = :userId";
 		$stmt = $bd->prepare($rq);
 		$data = array(":userId" => $userId);
         try{

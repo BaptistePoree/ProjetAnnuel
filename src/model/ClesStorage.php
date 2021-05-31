@@ -54,10 +54,29 @@ class ClesStorage{
     }
 
     public function estUnique($cle) {
+        $rq = $this->getCle($cle);
+        return $rq->rowCount() == 0;
+    }
+
+    public function isValide($cle){
+        $result = $this->getCle($cle);
+        if($result){
+            return !$result["isValider"];
+        }
+        return false;
+    } 
+
+    public function getRoleByCle($cle){
+        $rq = $this->getCle($cle);
+        $result = $rq->fetch();
+        return $result["idRole"];
+    }
+
+    public function getCle($cle){
         $bd = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
         $rq = $bd->prepare("SELECT * FROM cles WHERE cles = ?");
         $rq->execute(array($cle));
-        return $rq->rowCount() == 0;
+        return $rq;
     }
 
     public function getListeCles(){
@@ -80,25 +99,8 @@ class ClesStorage{
         }
     }
 
-    public function getIdRoleAndIdCles($cles){
-        $bd = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
-		$rq = "SELECT idRole, idCles FROM cles WHERE cles = :cles";
-		$stmt = $bd->prepare($rq);
-		$data = array(":cles" => $cles);
-        try{
-            $bd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $stmt->execute($data);
-            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            if(sizeof($result) === 0){
-                return null;
-            }else{
-                return new User($result[0]);
-            }
-        }catch(PDOException $e){
-            $this->view->makeErrorPage('Erreur lors d\'une requête à la base de donnée', $e->getMessage());
-            return 'error';
-        }
-    }
+
+
 }
 
 
