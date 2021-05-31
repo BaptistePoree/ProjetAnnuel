@@ -136,7 +136,7 @@ class View {
         $this->styleSheetList[] = 'investmentList';
     }
 
-    public function makeRegisterPage() {
+    public function makeRegisterPage($userBuilder = null) {
         $this->title = "Inscription";
         ob_start();
         include('templates/registerPage.php');
