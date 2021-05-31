@@ -32,7 +32,6 @@ class UserStorage{
         $email = htmlspecialchars($data['mail']);
         $password = sha1($data['password']);
         $key = htmlspecialchars($data['cles']);
-        $
 
         $bd = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
         $req = $bd->prepare("INSERT INTO users(mail, password, firstName, lastName, idCles) VALUE(?, ?, ?, ?, ?)");
