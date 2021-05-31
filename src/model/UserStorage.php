@@ -32,13 +32,14 @@ class UserStorage{
         $email = htmlspecialchars($data['mail']);
         $password = sha1($data['password']);
         $key = htmlspecialchars($data['cles']);
+        $role = htmlspecialchars($data['idRole']);
 
         $bd = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
-        $req = $bd->prepare("INSERT INTO users(mail, password, firstName, lastName, idCles) VALUE(?, ?, ?, ?, ?)");
+        $req = $bd->prepare("INSERT INTO users(mail, password, firstName, lastName, idCles, idRole) VALUE(?, ?, ?, ?, ?)");
 
         try {
             $bd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $req->execute(array($email, $password, $name, $surname, $key));
+            $req->execute(array($email, $password, $name, $surname, $key, $role));
         } catch (PDOException $e) {
             $this->view->makeErrorPage('Erreur lors de l\'inscription.', $e->getMessage());
         }
