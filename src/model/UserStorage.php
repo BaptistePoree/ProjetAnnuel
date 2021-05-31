@@ -35,7 +35,7 @@ class UserStorage{
         $role = htmlspecialchars($data['idRole']);
 
         $bd = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
-        $req = $bd->prepare("INSERT INTO users(mail, password, firstName, lastName, idRole, idCles) VALUE(?, ?, ?, ?, ?)");
+        $req = $bd->prepare("INSERT INTO users(mail, password, firstName, lastName, idRole, idCles) VALUE(?, ?, ?, ?, ?, ?)");
 
         try {
             $bd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
