@@ -279,7 +279,8 @@ class Controller
             $user = $this->userStorage->getUser($data['mail']);
             if ($user != 'error') {
                 if ($user != null) {
-                    if (password_verify($data['password'], $user->getPassword())) {
+                    $password = sha1($data['password']); // chiffrement du mdp avec sha1();
+                    if ($password === $user->getPassword()) { // compare les deux chaines au lieu de verify_password();
                         $_SESSION['isLogged'] = true;
                         $_SESSION['userId'] = $user->getId();
                         $_SESSION['role'] = $user->getRole();
