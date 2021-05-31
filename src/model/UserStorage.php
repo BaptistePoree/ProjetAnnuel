@@ -35,11 +35,11 @@ class UserStorage{
         $role = htmlspecialchars($data['idRole']);
 
         $bd = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
-        $req = $bd->prepare("INSERT INTO users(mail, password, firstName, lastName, idCles, idRole) VALUE(?, ?, ?, ?, ?)");
+        $req = $bd->prepare("INSERT INTO users(mail, password, firstName, lastName, idRole, idCles) VALUE(?, ?, ?, ?, ?)");
 
         try {
             $bd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $req->execute(array($email, $password, $name, $surname, $key, $role));
+            $req->execute(array($email, $password, $name, $surname, $role, $key));
         } catch (PDOException $e) {
             $this->view->makeErrorPage('Erreur lors de l\'inscription.', $e->getMessage());
         }
