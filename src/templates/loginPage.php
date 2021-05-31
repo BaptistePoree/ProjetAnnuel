@@ -2,7 +2,7 @@
     <img src="img/logo.png" alt='Logo' width="50px">
     <h1>Salon de Crowdfunding</h1>
     <?php
-    if ($msg) {
+    if ($newUser) {
         echo "<h3 style='color: green;'>Votre compte a bien été créé</h3>";
     }
     ?>
