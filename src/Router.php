@@ -11,10 +11,10 @@ class Router
 		$view = new View($this);
 		$controller = new Controller($view);
 
-		$action = key_exists('action', $_GET) ? $_GET['action'] : 'home';
+		$action = key_exists('action', $_GET) ? $_GET['action'] : 'login';
 		if (!key_exists('isLogged', $_SESSION) && key_exists($action, ['sign-in', 'register'])) {
 			$action = 'login';
-		}
+		} 
 
 		try {
 			switch ($action) {
@@ -79,7 +79,7 @@ class Router
 						$view->makeAccessDeniedPage();
 					}
 					break;
-					//}
+					
 				case "investmentList":
 					if ($_SESSION['role'] == 2) {
 						$controller->investmentList();
@@ -87,6 +87,7 @@ class Router
 						$view->makeAccessDeniedPage();
 					}
 					break;
+
 				case "investing":
 					if ($_SESSION['role'] == 2) {
 						if (key_exists('projectId', $_GET)) {
@@ -157,6 +158,19 @@ class Router
 					if ($_SESSION['role'] == 1) {
 						if (key_exists('create', $_POST)) {
 							$controller->createNewCles($_POST);
+						} else {
+							// $view->makeCreateNewProjectPage();
+						}
+					} else {
+						$view->makeAccessDeniedPage();
+					}
+					break;
+				
+				case 'suppresionCles':
+					if ($_SESSION['role'] == 1) {
+						print_r($_POST);
+						if (key_exists('suprimer', $_POST) && key_exists('delete', $_POST)) {
+							$controller->suprimerCles($_POST);
 						} else {
 							// $view->makeCreateNewProjectPage();
 						}

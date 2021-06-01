@@ -34,7 +34,9 @@ if ($clesBuilder != null) {
             <select name="roleChoisi" class="roleChoisi"> 
                 <option value="0">roles</option> 
                 <option value="1">admine</option> 
-                <option value="2">Crowd-fondeurs</option>  
+                <option value="2">Crowd-fondeur</option>  
+                <!-- <option value="3">Professeur</option> -->
+                <!-- <option value="4">Etudiant</option>   -->
             </select> 
             <!-- <input type="number" name="nombreDeCles"  placeholder="nombreDeCles" class="nombreDeCles" min="1" max="99"> -->
             <input type="submit" name="create" value="Ajouter les cles"> </div>

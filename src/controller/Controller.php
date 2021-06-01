@@ -244,6 +244,25 @@ class Controller
         }
     }
 
+    public function suprimerCles($data)
+    {
+        print_r($data);
+        $listeCles = $data['delete'];
+        if (key_exists('delete', $data)) {
+            foreach ($listeCles as $idCles) { 
+                echo $idCles . "  ";
+                //$response = $this->clesStorage->suprimerCles($idCles);
+            }
+            /*
+            if ($response != 'error') {
+                $this->parametreClesPage();
+            }
+            */
+        } else {
+            $this->parametreClesPage();
+        }
+    }
+
     public function register($data)
     {
         if (
