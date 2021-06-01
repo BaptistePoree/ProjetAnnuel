@@ -61,12 +61,12 @@ class Controller
         }
     }
 
-    public function showProject($projectId)
+    public function showProject($projectId, $new = false)
     {
         $project = $this->projectStorage->getProject($projectId);
         if ($project != 'error') {
             if ($project != null) {
-                $this->view->makeShowProjectPage($project);
+                $this->view->makeShowProjectPage($project, $new);
             } else {
                 $this->view->makeErrorPage('Projet introuvable', 'Le projet demandé n\'existe pas');
             }
