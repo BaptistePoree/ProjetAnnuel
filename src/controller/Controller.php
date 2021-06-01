@@ -80,7 +80,7 @@ class Controller
             $project = $projectBuilder->buildProject();
             $response = $this->projectStorage->addProject($project);
             if ($response != 'error') {
-                $this->showProject($response);
+                $this->showProject($response, true);
                 //TO-DO: Pour l'instant une fois ajouter, est affiché la page du projet qui vient d'être créer. Peut-être à la place un page indiquant que le projet à bien été ajouté, et 3 boutons: -Voir fiche projet, -ajouter un autre projet, -retourner à l'accueil
             }
         } else {
