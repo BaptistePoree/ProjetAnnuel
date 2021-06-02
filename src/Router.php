@@ -14,7 +14,7 @@ class Router
 		$action = key_exists('action', $_GET) ? $_GET['action'] : 'login';
 		if (!key_exists('isLogged', $_SESSION) && key_exists($action, ['sign-in', 'register'])) {
 			$action = 'login';
-		}
+		} 
 
 		try {
 			switch ($action) {
@@ -72,9 +72,6 @@ class Router
 					if ($_SESSION['role'] == 1) {
 						if (key_exists('create', $_POST)) {
 							$controller->createNewProject($_POST);
-						}
-						if (key_exists('projetId', $_GET)) {
-							$controller->openEditProjet($_GET);
 						} else {
 							$view->makeCreateNewProjectPage();
 						}
@@ -82,7 +79,7 @@ class Router
 						$view->makeAccessDeniedPage();
 					}
 					break;
-
+					
 				case "investmentList":
 					if ($_SESSION['role'] == 2) {
 						$controller->investmentList();
@@ -168,7 +165,7 @@ class Router
 						$view->makeAccessDeniedPage();
 					}
 					break;
-
+				
 				case 'suppresionCles':
 					if ($_SESSION['role'] == 1) {
 						print_r($_POST);
@@ -208,4 +205,6 @@ class Router
 		}
 		$view->render();
 	}
+
+	
 }

@@ -275,10 +275,6 @@ class Controller
     public function exportClesCrowFondeur()
     {
         $allClesCrowFondeur = $this->clesStorage->exportCles(2);
-        // echo 'exportClesCrowFondeur controleur';
-        // echo '<pre>';
-        // print_r($allClesCrowFondeur);
-        // echo '</pre>';
         
         if ($allClesCrowFondeur != null) {
             header('Content-Type: application/csv');
