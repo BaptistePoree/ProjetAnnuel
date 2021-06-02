@@ -88,6 +88,16 @@ class Controller
         }
     }
 
+    public function openEditProjet($data){
+        $project = $this->projectStorage->getProject($data['projetId']);
+        $projectData = array(
+            "name" => $project->getName(),
+            "description" => $project->getDescription(),
+        );
+        $projectBuilder = new ProjectBuilder($projectData);
+        $this->view->makeCreateNewProjectPage($projectBuilder);
+    }
+
     public function canInvest()
     {
         $user = $this->userStorage->getUserById($_SESSION['userId']);
