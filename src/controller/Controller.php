@@ -73,12 +73,16 @@ class Controller
         }
     }
 
-    public function createNewProject($data)
+    public function createNewProject($data, $onEdit = false)
     {
         $projectBuilder = new ProjectBuilder($data);
         if ($projectBuilder->isValid()) {
             $project = $projectBuilder->buildProject();
-            $response = $this->projectStorage->addProject($project);
+            if($onEdit){
+                $response = $this->projectStorage->modifyProject($project);
+            } else {
+                $response = $this->projectStorage->addProject($project);
+            }
             if ($response != 'error') {
                 $this->showProject($response, true);
                 //TO-DO: Pour l'instant une fois ajouter, est affiché la page du projet qui vient d'être créer. Peut-être à la place un page indiquant que le projet à bien été ajouté, et 3 boutons: -Voir fiche projet, -ajouter un autre projet, -retourner à l'accueil
@@ -88,14 +92,20 @@ class Controller
         }
     }
 
-    public function openEditProjet($data){
+    public function openEditProjet($data)
+    {
         $project = $this->projectStorage->getProject($data['projetId']);
         $projectData = array(
             "name" => $project->getName(),
             "description" => $project->getDescription(),
         );
         $projectBuilder = new ProjectBuilder($projectData);
-        $this->view->makeCreateNewProjectPage($projectBuilder);
+        $this->view->makeCreateNewProjectPage($projectBuilder, true);
+    }
+
+    public function modifyProject($data, $projetId){
+        $data['projetId'] = $projetId['projetId'];
+        $this->createNewProject($data, true);
     }
 
     public function canInvest()
@@ -259,7 +269,7 @@ class Controller
         print_r($data);
         $listeCles = $data['delete'];
         if (key_exists('delete', $data)) {
-            foreach ($listeCles as $idCles) { 
+            foreach ($listeCles as $idCles) {
                 echo $idCles . "  ";
                 //$response = $this->clesStorage->suprimerCles($idCles);
             }

@@ -74,7 +74,11 @@ class Router
 							$controller->createNewProject($_POST);
 						}
 						if (key_exists('projetId', $_GET)) {
-							$controller->openEditProjet($_GET);
+							if (key_exists('modify', $_POST)) {
+								$controller->modifyProject($_POST, $_GET);
+							} else {
+								$controller->openEditProjet($_GET);
+							}
 						} else {
 							$view->makeCreateNewProjectPage();
 						}

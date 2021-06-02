@@ -68,14 +68,14 @@ class View {
         $this->styleSheetList[] = 'general';
     }
 
-    public function makeCreateNewProjectPage($projectBuilder = null){
+    public function makeCreateNewProjectPage($projectBuilder = null, $edit = false){
         $this->title = "Ajouter un projet";
         $this->content .= '<main><a href="?action=home" class="backButton"><img src="img/back_button.png" alt="Retour_Logo"><span>Retour</span></a>  ';
-        $this->content .= '<h2>Ajouter un projet</h2><form method="POST" action=".?action=createNewProject">';
+        $this->content .= '<h2>Ajouter un projet</h2>';
         ob_start();
         include('templates/projectForm.php');
         $this->content .= ob_get_clean();
-        $this->content .= '<input type="submit" name="create" value="Ajouter projet"></form></main>';
+        $this->content .= '</form></main>';
         $this->styleSheetList[] = 'general';
         $this->styleSheetList[] = 'projectForm';
     }

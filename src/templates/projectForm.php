@@ -32,14 +32,24 @@ if ($projectBuilder != null) {
 
 ?>
 
-<div>
-    <label for="name">Nom du projet</label>
-    <input type="text" autocomplete="off" name="name" id="name" <?php echo $dataList['name'] ?>>
-    <?php echo $errorsList['name'] ?>
-</div>
+<form method="POST" action=".?action=createNewProject<?php if ($edit) echo "&projetId=".$_GET['projetId']; ?>">
 
-<div>
-    <label for="description">Description du projet</label>
-    <input type="text" autocomplete="off" name="description" id="description" <?php echo $dataList['description'] ?>>
-    <?php echo $errorsList['description'] ?>
-</div>
+    <div>
+        <label for="name">Nom du projet</label>
+        <input type="text" autocomplete="off" name="name" id="name" <?php echo $dataList['name'] ?>>
+        <?php echo $errorsList['name'] ?>
+    </div>
+
+    <div>
+        <label for="description">Description du projet</label>
+        <input type="text" autocomplete="off" name="description" id="description" <?php echo $dataList['description'] ?>>
+        <?php echo $errorsList['description'] ?>
+    </div>
+
+    <?php
+    if ($edit) {
+        echo '<input type="submit" name="modify" value="Modifier projet">';
+    } else {
+        echo '<input type="submit" name="create" value="Ajouter projet">';
+    }
+    ?>

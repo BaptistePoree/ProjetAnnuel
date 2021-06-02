@@ -64,4 +64,22 @@ class ProjectStorage{
             return 'error';
         }
     }
+
+    public function modifyProject($project){
+        try {
+            $bd = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
+            $rq = "UPDATE projects SET name = ?, description = ? WHERE ";
+            $stmt = $bd->prepare($rq);
+            $data = array(
+                ":name" => $project->getName(),
+                ":description" => $project->getDescription(),
+            );
+            if ($stmt->execute($data)) {
+                return $bd->lastInsertId();
+            }
+        } catch (PDOException $e) {
+            $this->view->makeErrorPage('Erreur lors d\'une requête à la base de donnée', $e->getMessage());
+            return 'error';
+        }
+    }
 }
