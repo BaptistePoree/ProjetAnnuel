@@ -65,17 +65,18 @@ class ProjectStorage{
         }
     }
 
-    public function modifyProject($project){
+    public function modifyProject($project, $projectId){
         try {
             $bd = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
-            $rq = "UPDATE projects SET name = ?, description = ? WHERE ";
+            $rq = "UPDATE projects SET name = ?, description = ? WHERE id = ?";
             $stmt = $bd->prepare($rq);
             $data = array(
-                ":name" => $project->getName(),
-                ":description" => $project->getDescription(),
+                $project->getName(),
+                $project->getDescription(),
+                $projectId,
             );
             if ($stmt->execute($data)) {
-                return $bd->lastInsertId();
+                return $projectId;
             }
         } catch (PDOException $e) {
             $this->view->makeErrorPage('Erreur lors d\'une requête à la base de donnée', $e->getMessage());

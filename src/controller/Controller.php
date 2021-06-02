@@ -61,12 +61,12 @@ class Controller
         }
     }
 
-    public function showProject($projectId, $new = false)
+    public function showProject($projectId, $msg = null)
     {
         $project = $this->projectStorage->getProject($projectId);
         if ($project != 'error') {
             if ($project != null) {
-                $this->view->makeShowProjectPage($project, $new);
+                $this->view->makeShowProjectPage($project, $msg);
             } else {
                 $this->view->makeErrorPage('Projet introuvable', 'Le projet demandé n\'existe pas');
             }
@@ -79,12 +79,14 @@ class Controller
         if ($projectBuilder->isValid()) {
             $project = $projectBuilder->buildProject();
             if($onEdit){
-                $response = $this->projectStorage->modifyProject($project);
+                $response = $this->projectStorage->modifyProject($project, $data['projetId']);
+                $msg = "Le projet a bien été mis à jour!";
             } else {
                 $response = $this->projectStorage->addProject($project);
+                $msg = "Le projet a bien été créé!";
             }
             if ($response != 'error') {
-                $this->showProject($response, true);
+                $this->showProject($response, $msg);
                 //TO-DO: Pour l'instant une fois ajouter, est affiché la page du projet qui vient d'être créer. Peut-être à la place un page indiquant que le projet à bien été ajouté, et 3 boutons: -Voir fiche projet, -ajouter un autre projet, -retourner à l'accueil
             }
         } else {
