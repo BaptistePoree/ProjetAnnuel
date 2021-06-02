@@ -1,5 +1,10 @@
 <main>
     <a href="?action=projectList" class="backButton"><img src="img/back_button.png" alt="Retour_Logo"><span>Retour</span></a>  
+    <?php
+    if($new){
+        echo "<h3 style='color: green'>Le prjet à bien été ajouté!</h3>";
+    }
+    ?>
     <h2>Projet - <?php echo $project->getName() ?></h2>
     <table>
         <tr>

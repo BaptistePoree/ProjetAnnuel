@@ -51,7 +51,7 @@ class View {
         $this->styleSheetList[] = 'projectList';
     }
 
-    public function makeShowProjectPage($project){
+    public function makeShowProjectPage($project, $new){
         $this->title = "Projet - " . $project->getName();
         ob_start();
         include('templates/projectPage.php');
