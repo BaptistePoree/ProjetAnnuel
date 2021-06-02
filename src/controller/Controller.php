@@ -262,6 +262,26 @@ class Controller
         }
     }
 
+    public function exportClesCrowFondeur()
+    {
+        $allClesCrowFondeur = $this->clesStorage->exportCles(2);
+        // echo 'exportClesCrowFondeur controleur';
+        // echo '<pre>';
+        // print_r($allClesCrowFondeur);
+        // echo '</pre>';
+        
+        if ($allClesCrowFondeur != null) {
+            header('Content-Type: application/csv');
+            header('Content-Disposition: attachment; filename="ClesCrowFondeur.csv";');
+            $f = fopen('php://output', 'w');
+            foreach ($allClesCrowFondeur as $investment) {
+                fputcsv($f, $investment, ";");
+            }
+            exit;
+        }
+        
+    }
+
     public function register($data)
     {
         if (

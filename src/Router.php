@@ -159,7 +159,7 @@ class Router
 						if (key_exists('create', $_POST)) {
 							$controller->createNewCles($_POST);
 						} else {
-							// $view->makeCreateNewProjectPage();
+							//$view->makeAccessDeniedPage();
 						}
 					} else {
 						$view->makeAccessDeniedPage();
@@ -172,8 +172,16 @@ class Router
 						if (key_exists('suprimer', $_POST) && key_exists('delete', $_POST)) {
 							$controller->suprimerCles($_POST);
 						} else {
-							// $view->makeCreateNewProjectPage();
+							//$view->makeAccessDeniedPage();
 						}
+					} else {
+						$view->makeAccessDeniedPage();
+					}
+					break;
+
+				case "exportClesCrowFondeur":
+					if ($_SESSION['role'] == 1) {
+						$controller->exportClesCrowFondeur();
 					} else {
 						$view->makeAccessDeniedPage();
 					}

@@ -19,6 +19,8 @@
         <?php $bdListeCles = new ClesStorage($this); ?>
         <form method="POST" action=".?action=suppresionCles">
 
+        <a href=".?action=exportClesCrowFondeur">Exporter la liste de tous les Crowd-fundeur non valider</a>
+
             <input id="supresion" class="off" type="submit" name="suprimer" value="suprimerCles">
 
             <table class="listeClesRole">
