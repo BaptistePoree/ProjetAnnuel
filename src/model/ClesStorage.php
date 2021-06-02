@@ -75,6 +75,25 @@ class ClesStorage
         }
     }
 
+    public function exportCles($id = 2)
+    {
+        try{
+            $bd = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
+            $rq = "SELECT cles.id, role.nomRole, cles.cles FROM role, cles WHERE cles.idRole = role.id AND role.id = $id AND cles.isValider IS NULL"; //WHERE cles.idRole = role.id"; //ORDER BY investments.idProject";
+            $stmt = $bd->prepare($rq);
+            $stmt->execute();
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            if($result != null){
+                return $result;
+            }else{
+                return null;
+            }
+        }catch(PDOException $e){
+            $this->view->makeErrorPage('Erreur lors d\'une requête à la base de donnée', $e->getMessage());
+            return 'error';
+        }
+    }
+
     public function estUnique($cle)
     {
         $rq = $this->getCle($cle);
