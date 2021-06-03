@@ -5,8 +5,8 @@
         <ul>
     <?php
         if($_SESSION['role'] == 1){
-            // echo '
-            // <li><a href=".?action=parametreControle">Paneau de Controle</a></li>';
+            echo '
+            <li><a href=".?action=parametreControle">Paneau de Controle</a></li>';
             echo '
             <li><a href=".?action=parametreCle">Génération de Cles</a></li>';
             // echo '

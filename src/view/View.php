@@ -172,13 +172,13 @@ class View {
         $this->styleSheetList[] = 'parametreList';
     }
 
-    public function makeParametreControlePage(){
+    public function makeParametreControlePage($ParametreBuilder = null){
         $this->title = "Parametre";
         ob_start();
         include('templates/parametreControle.php');
         $this->content .= ob_get_clean();
         $this->styleSheetList[] = 'general';
-        $this->styleSheetList[] = 'parametreList';
+        $this->styleSheetList[] = 'parametreControle';
     }
 
     public function makeParametreClesPage($listeClesRole = null, $clesBuilder = null){
