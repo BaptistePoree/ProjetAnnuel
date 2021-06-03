@@ -83,4 +83,21 @@ class ProjectStorage{
             return 'error';
         }
     }
+
+    public function deleteProjet($projectId){
+        try {
+            $bd = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
+            $rq = "DELETE FROM projects WHERE id = ?";
+            $stmt = $bd->prepare($rq);
+            $data = array(
+                $projectId,
+            );
+            if ($stmt->execute($data)) {
+                return $projectId;
+            }
+        } catch (PDOException $e) {
+            $this->view->makeErrorPage('Erreur lors d\'une requête à la base de donnée', $e->getMessage());
+            return 'error';
+        }
+    }
 }
