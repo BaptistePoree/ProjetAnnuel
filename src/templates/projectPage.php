@@ -2,7 +2,7 @@
     <a href="?action=projectList" class="backButton"><img src="img/back_button.png" alt="Retour_Logo"><span>Retour</span></a>
     <?php
     if ($msg != null) {
-        echo "<h3 style='color: green'>".$msg."</h3>";
+        echo "<h3 style='color: green'>" . $msg . "</h3>";
     }
     ?>
     <h2>Projet - <?php echo $project->getName() ?></h2>
@@ -46,7 +46,8 @@
     <div>
         <?php
         if ($_SESSION['role'] == 1) {
-            echo "<a href='.?action=createNewProject&projetId=" . $project->getId() . "'>Modifier</a><a href=''>Supprimer</a>";
+            echo "<a href='.?action=createNewProject&projetId=" . $project->getId() . "'>Modifier</a>
+            <form method='POST' action=''><input type='submit' name='delete' value='Supprimer'></form>";
         }
         ?>
 
