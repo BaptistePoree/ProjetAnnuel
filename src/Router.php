@@ -194,6 +194,45 @@ class Router
 					}
 					break;
 
+				case "Plafon":
+					if ($_SESSION['role'] == 1) {
+						if (key_exists('Plafon', $_POST))
+						{ 
+							($_POST['Plafon'] === 'Plafon')? $controller->parameterPlafond($_POST['plafond_num']) : $view->makeAccessDeniedPage();
+						}
+						else
+						{ $controller->parametre("Plafon"); }
+					} else {
+						$view->makeAccessDeniedPage();
+					}
+					break;
+
+				case "Clean":
+					if ($_SESSION['role'] == 1) {
+						if (key_exists('Clean', $_POST))
+						{ 
+							($_POST['Clean'] === 'Clean')? $controller->parameterClean() : $view->makeAccessDeniedPage();
+						}
+						else
+						{ $controller->parametre("Clean"); }
+					} else {
+						$view->makeAccessDeniedPage();
+					}
+					break;
+
+				case "Investissement":
+					if ($_SESSION['role'] == 1) {
+						if (key_exists('Investissement', $_POST))
+						{ 
+							($_POST['Investissement'] === 'Ouvert')? $controller->parameterInvestissement("Ouvert") : $controller->parameterInvestissement("Fermer");
+						}
+						else
+						{ $controller->parametre("Investissement"); }
+					} else {
+						$view->makeAccessDeniedPage();
+					}
+					break;
+
 				case 'parametreRole':
 					if ($_SESSION['role'] == 1) {
 						$view->makeParametreRolePage();

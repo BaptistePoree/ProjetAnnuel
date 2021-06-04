@@ -12,6 +12,8 @@ require_once("model/SettingsStorage.php");
 //require_once("model/UserInvestments.php");
 require_once("model/ClesStorage.php");
 require_once("model/ClesBuilder.php");
+require_once("model/RoleStorage.php");
+
 
 
 class Controller
@@ -28,6 +30,7 @@ class Controller
         $this->userStorage = new UserStorage($this->view);
         $this->settingsStorage = new SettingsStorage();
         $this->clesStorage = new ClesStorage($this->view);
+        $this->roleStorage = new RoleStorage($this->view);
     }
     /*
     public function salonList(){
@@ -297,8 +300,78 @@ class Controller
             }
             exit;
         }
-        
     }
+
+    public function parametre($type = null)
+    {
+        if ($type != null) 
+        {
+            $data = ['titre' => $type, 'core' => ''];
+            $data['core'] ='<form method="POST" action=".?action='.$type.'">';
+            $data['core'].='<p>';
+            if ($type == "Plafon")
+            { 
+                $plafonMax = $this->settingsStorage->getSettings('maximumInvestment')['value']/1000;
+
+                $data['titrePage'] = "du Plafond des Investissement du salon"; 
+
+                $data['core'].= 'Le ' . $type . ' est un multiple de 1000, donc saisier un chifre qui sera multipler par 1000 (chifre * 1000) : '; 
+                $data['core'].= '<input id="number" type="text" name="plafond_num" value="'.$plafonMax.'" min="0">';
+                $data['core'].= '<input type="submit" name="' . $type . '" value="' . $type . '" id="butonUnique">' ;
+            
+            }
+            elseif ($type == "Clean")
+            { 
+                $data['titrePage'] = "de ".$type." des Investissement du salon"; 
+
+                $data['core'].= 'Le ' . $type . ' est la pour effacer tout les investissement fait dans le salon : '; 
+                $data['core'].= '<input type="submit" name="' . $type . '" value="' . $type . '" id="butonUnique">' ;
+            }
+            elseif ($type === "Investissement")
+            { 
+                if ($this->roleStorage->isInvestisementOuvert())
+                { if ($this->userStorage->convertionCanEditing(1))
+                    { $etatSalon = 'Ouvert'; }
+                }
+                else
+                { if ($this->userStorage->convertionCanEditing(0))
+                    { $etatSalon = 'Fermer'; }
+                }
+                $data['titrePage'] = 'des '.$type; 
+
+                $data['core'].= 'Les ' . $type . ' sont : '; 
+                $data['core'].= '<input type="submit" name="' . $type . '" value="' . $etatSalon . '" id="butonUnique">' ;
+            }
+            $data['core'].= ' </p>' ;
+            $data['core'].= ' </from>' ;
+            $this->view->makeParametreSalonPage($data);
+        }
+        else
+        { $this->view->makeParametreControlePage(); }
+    }
+
+    public function parameterPlafond($plafond = 0)
+    {        
+        $plafondK = $plafond*1000;
+        $this->settingsStorage->changerSettings($plafondK);
+        $this->view->makeParametreControlePage();
+    }
+
+    public function parameterClean()
+    {
+        $this->investmentStorage->deleteInvestment();
+        $this->view->makeParametreControlePage();
+    }
+
+    public function parameterInvestissement($etatSalon)
+    {
+        if ($etatSalon === 'Ouvert')
+        { $this->roleStorage->convertionInsvestire(0); }
+        else
+        { $this->roleStorage->convertionInsvestire(1); }
+        $this->view->makeParametreControlePage();
+    }
+
 
     public function register($data)
     {

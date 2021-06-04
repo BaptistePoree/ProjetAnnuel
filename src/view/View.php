@@ -172,14 +172,25 @@ class View {
         $this->styleSheetList[] = 'parametreList';
     }
 
-    public function makeParametreControlePage($ParametreBuilder = null){
-        $this->title = "Parametre";
+    public function makeParametreControlePage(){
+        $this->title = "PaneauxControle";
         ob_start();
         include('templates/parametreControle.php');
         $this->content .= ob_get_clean();
         $this->styleSheetList[] = 'general';
-        $this->styleSheetList[] = 'parametreControle';
+        $this->styleSheetList[] = 'parametreList';
     }
+
+    public function makeParametreSalonPage($data = null){
+        $this->title = "Parametre". (($data === null)? null : $data['titre']);
+        ob_start();
+        include('templates/parametreControleSalon.php');
+        $this->content .= ob_get_clean();
+        $this->styleSheetList[] = 'general';
+        $this->styleSheetList[] = 'parametreList';
+    }
+
+
 
     public function makeParametreClesPage($listeClesRole = null, $clesBuilder = null){
         $this->title = "Parametre";

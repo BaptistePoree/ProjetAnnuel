@@ -86,4 +86,21 @@ class UserStorage
             return 'error';
         }
     }
+
+    public function convertionCanEditing($num = 1, $role = 2)
+    {
+        $bd = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
+        $rq = "UPDATE users SET canInvest = $num WHERE idRole = :idRole";
+        $stmt = $bd->prepare($rq);
+        $data = array(":idRole" => $role);
+        try {
+            $bd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            if ($stmt->execute($data)) {
+                return true;
+            }
+        } catch (PDOException $e) {
+            $this->view->makeErrorPage('Erreur lors d\'une requête à la base de donnée', $e->getMessage());
+            return 'error';
+        }
+    }
 }

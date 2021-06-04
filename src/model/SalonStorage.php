@@ -1,7 +1,5 @@
 <?php
 
-require_once("model/Salon.php");
-
 class SalonStorage{
 
     public function __construct($view) {
