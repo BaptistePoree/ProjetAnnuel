@@ -27,12 +27,25 @@
 </head>
 
 <style>
-    .bg-modal {
+    .closed {
         display: none;
+    }
+
+    .bg-modal {
         position: absolute;
         width: 100%;
         height: 100%;
         background: rgba(0, 0, 0, 0.7);
+        margin-top: -30px;
+    }
+
+    .popup-modal {
+        max-width: 500px;
+        max-height: 300px;
+        background: white;
+        border-radius: 10px;
+        margin: auto auto;
+        padding: 20px;
     }
 
     body {
@@ -40,5 +53,19 @@
     }
 </style>
 
+<script>
+    function togglePopup() {
+        const popup = document.querySelector(".bg-modal");
+        popup.classList.toggle("closed");
+    }
+</script>
+
 <body>
-    <div class="bg-modal"></div>
+    <div class="bg-modal closed">
+        <div class="popup-modal">
+            <a href="" onclick="togglePopup()">Fermer</a>
+            <p>Voulez-vous vraiment supprimer ce projet ?</p>
+            <input type="button" onclick="togglePopup()" value="Annuler">
+            <input type="button" value="Valider">
+        </div>
+    </div>
