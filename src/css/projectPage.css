@@ -55,3 +55,27 @@ h2{
     text-align: center;
 
 }
+
+input[type="submit"], .button-form, #delete {
+  border: none;
+
+  cursor: pointer;
+
+  padding: 10px;
+
+  border-radius: 10px;
+
+  transition-property: color, background;
+
+  transition-duration: 0.2s;
+}
+
+input[type="submit"]:focus, .button-form, #delete {
+  outline: none;
+}
+
+input[type="submit"]:hover, .button-form, #delete {
+  background: gray;
+
+  color: white;
+}
