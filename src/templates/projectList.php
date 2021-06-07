@@ -1,5 +1,10 @@
 <main>
     <a href="?action=home" class="backButton"><img src="img/back_button.png" alt="Retour_Logo"><span>Retour</span></a>  
+    <?php
+    if($msg != null){
+        echo "<h3 style='color: green;'>".$msg."</h3>";
+    }
+    ?>
     <h2>Liste des projets</h2>
     <?php
     if (sizeof($listOfProject) === 0) {

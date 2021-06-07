@@ -66,7 +66,7 @@
             <a href="" onclick="togglePopup()">Fermer</a>
             <p>Voulez-vous vraiment supprimer ce projet ?</p>
             <div style="display: flex;">
-                <input type="button" onclick="togglePopup()" id="cancel" value="Annuler">
+                <input type="button" onclick="togglePopup()" class="button-form" value="Annuler">
                 <form action="" method="POST">
                     <input type="submit" name="delete" onclick="togglePopup()" value="Valider">
                 </form>

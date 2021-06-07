@@ -56,11 +56,11 @@ class Controller
         }
     }
 */
-    public function projectList()
+    public function projectList($msg = null)
     {
         $listOfProject = $this->projectStorage->getProjectsList();
         if ($listOfProject != 'error') {
-            $this->view->makeProjectListPage($listOfProject);
+            $this->view->makeProjectListPage($listOfProject, $msg);
         }
     }
 
@@ -115,7 +115,11 @@ class Controller
 
     public function deleteProject($data){
         $projectId = htmlspecialchars($data['projectId']);
-        $this->projectStorage->deleteProject($projectId);
+        $project = $this->projectStorage->getProject($projectId);
+        $error = $this->projectStorage->deleteProject($projectId);
+        if($error !== 'error'){
+            $this->projectList("Le projet \"" . $project->getName() . "\" à bien été supprimé");
+        }
     }
 
     public function canInvest()

@@ -42,7 +42,7 @@ class View {
         $this->styleSheetList[] = 'general';
     }
 
-    function makeProjectListPage($listOfProject){
+    function makeProjectListPage($listOfProject, $msg){
         $this->title = "Liste des projets";
         ob_start();
         include('templates/projectList.php');

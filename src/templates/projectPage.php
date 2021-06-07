@@ -46,7 +46,7 @@
     <div>
         <?php
         if ($_SESSION['role'] == 1) {
-            echo "<a href='.?action=createNewProject&projetId=" . $project->getId() . "'>Modifier</a>
+            echo "<a class='button-form' href='.?action=createNewProject&projetId=" . $project->getId() . "'>Modifier</a>
             <input type='button' onclick='togglePopup()' id='delete' name='delete' value='Supprimer'>";
         }
         ?>

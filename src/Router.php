@@ -58,14 +58,15 @@ class Router
 				}
 			*/
 				case "projectList":
+					
 					$controller->projectList();
 					break;
 				case 'showProject':
-					if (key_exists('projectId', $_GET)) {
+					if (key_exists('delete', $_POST)) {
+						$controller->deleteProject($_GET);
+					}
+					else if (key_exists('projectId', $_GET)) {
 						$controller->showProject($_GET['projectId']);
-						if (key_exists('delete', $_POST)) {
-							$controller->deleteProject($_GET);
-						}
 					} else {
 						//TO-DO: Page erreur pas d'identifiant de projet placé en paramètre
 					}
