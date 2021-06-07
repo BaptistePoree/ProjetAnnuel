@@ -28,13 +28,6 @@ src
 ├── img/
 ├── model/
 ├── templates/
-│
-│
-│
-│
-│
-│
-│
 ├── view/
 │     └── View.php
 ├── README.md
