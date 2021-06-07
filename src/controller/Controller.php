@@ -113,6 +113,11 @@ class Controller
         $this->createNewProject($data, true);
     }
 
+    public function deleteProject($data){
+        $projectId = htmlspecialchars($data['projectId']);
+        $this->projectStorage->deleteProject($projectId);
+    }
+
     public function canInvest()
     {
         $user = $this->userStorage->getUserById($_SESSION['userId']);

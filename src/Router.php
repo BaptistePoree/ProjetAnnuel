@@ -14,7 +14,7 @@ class Router
 		$action = key_exists('action', $_GET) ? $_GET['action'] : 'login';
 		if (!key_exists('isLogged', $_SESSION) && key_exists($action, ['sign-in', 'register'])) {
 			$action = 'login';
-		} 
+		}
 
 		try {
 			switch ($action) {
@@ -63,6 +63,9 @@ class Router
 				case 'showProject':
 					if (key_exists('projectId', $_GET)) {
 						$controller->showProject($_GET['projectId']);
+						if (key_exists('delete', $_POST)) {
+							$controller->deleteProject($_GET);
+						}
 					} else {
 						//TO-DO: Page erreur pas d'identifiant de projet placé en paramètre
 					}
@@ -86,7 +89,7 @@ class Router
 						$view->makeAccessDeniedPage();
 					}
 					break;
-					
+
 				case "investmentList":
 					if ($_SESSION['role'] == 2) {
 						$controller->investmentList();
@@ -172,7 +175,7 @@ class Router
 						$view->makeAccessDeniedPage();
 					}
 					break;
-				
+
 				case 'suppresionCles':
 					if ($_SESSION['role'] == 1) {
 						print_r($_POST);
@@ -196,12 +199,11 @@ class Router
 
 				case "Plafon":
 					if ($_SESSION['role'] == 1) {
-						if (key_exists('Plafon', $_POST))
-						{ 
-							($_POST['Plafon'] === 'Plafon')? $controller->parameterPlafond($_POST['plafond_num']) : $view->makeAccessDeniedPage();
+						if (key_exists('Plafon', $_POST)) {
+							($_POST['Plafon'] === 'Plafon') ? $controller->parameterPlafond($_POST['plafond_num']) : $view->makeAccessDeniedPage();
+						} else {
+							$controller->parametre("Plafon");
 						}
-						else
-						{ $controller->parametre("Plafon"); }
 					} else {
 						$view->makeAccessDeniedPage();
 					}
@@ -209,12 +211,11 @@ class Router
 
 				case "Clean":
 					if ($_SESSION['role'] == 1) {
-						if (key_exists('Clean', $_POST))
-						{ 
-							($_POST['Clean'] === 'Clean')? $controller->parameterClean() : $view->makeAccessDeniedPage();
+						if (key_exists('Clean', $_POST)) {
+							($_POST['Clean'] === 'Clean') ? $controller->parameterClean() : $view->makeAccessDeniedPage();
+						} else {
+							$controller->parametre("Clean");
 						}
-						else
-						{ $controller->parametre("Clean"); }
 					} else {
 						$view->makeAccessDeniedPage();
 					}
@@ -222,12 +223,11 @@ class Router
 
 				case "Investissement":
 					if ($_SESSION['role'] == 1) {
-						if (key_exists('Investissement', $_POST))
-						{ 
-							($_POST['Investissement'] === 'Ouvert')? $controller->parameterInvestissement("Ouvert") : $controller->parameterInvestissement("Fermer");
+						if (key_exists('Investissement', $_POST)) {
+							($_POST['Investissement'] === 'Ouvert') ? $controller->parameterInvestissement("Ouvert") : $controller->parameterInvestissement("Fermer");
+						} else {
+							$controller->parametre("Investissement");
 						}
-						else
-						{ $controller->parametre("Investissement"); }
 					} else {
 						$view->makeAccessDeniedPage();
 					}
@@ -251,6 +251,4 @@ class Router
 		}
 		$view->render();
 	}
-
-	
 }

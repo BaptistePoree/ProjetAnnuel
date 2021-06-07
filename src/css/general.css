@@ -29,7 +29,7 @@ h1 {
   text-align: center;
 }
 
-input[type="submit"] {
+input[type="submit"], #cancel {
   border: none;
 
   cursor: pointer;

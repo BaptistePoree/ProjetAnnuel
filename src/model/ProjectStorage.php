@@ -84,7 +84,7 @@ class ProjectStorage{
         }
     }
 
-    public function deleteProjet($projectId){
+    public function deleteProject($projectId){
         try {
             $bd = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD);
             $rq = "DELETE FROM projects WHERE id = ?";
